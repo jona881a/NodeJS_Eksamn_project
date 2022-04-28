@@ -14,7 +14,10 @@ async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
   db.query(
-    `SELECT * FROM users WHERE username = '${user.username}';`,
+    (`SELECT * FROM users WHERE username = ?, password = ?`, [
+      user.username, 
+      user.password
+    ]),
     async (err, data) => {
       if (data[0]) {
         let foundUser = data[0];
@@ -23,15 +26,15 @@ async function checkLoginInfo(req, res, next) {
           foundUser.password
         );
         if (!correctPassword) {
-          res
-            .status(404)
-            .send({ message: "Username or password is not correct" });
-        } else {
           userToSend = {
             fullname: foundUser.fullname,
             email: foundUser.email,
             username: foundUser.username,
           };
+        } else {
+          res
+            .status(404)
+            .send({ message: "Username or password is not correct" });
           next();
         }
       } else {
@@ -46,21 +49,25 @@ async function checkLoginInfo(req, res, next) {
 async function createUser(req, res, next) {
   const user = req.body;
   db.query(
-    `SELECT * FROM users WHERE username = '${user.username}';`,
+    `SELECT * FROM users WHERE username = ?`, [user.username],
     async (err, data) => {
-      if (data[0]) {
-        //409: Conflict
-        res.status(409).send({
-          message: `User with ${user.username} already exists. `,
-        });
-      } else {
+      if (!data[0]) {
         const hashedPassword = await bcrypt.hash(user.password, saltRounds);
         const newUser = { ...user, password: hashedPassword };
 
         db.query(
-          `INSERT INTO users(fullname,email,username,password) VALUES('${newUser.fullname}','${newUser.email}','${newUser.username}','${newUser.password}');`
+          `INSERT INTO users(fullname,email,username,password) VALUES(?, ?, ?, ?)`, [
+            user.fullname, 
+            user.email, 
+            user.username, 
+            user.password]
         );
         next();
+      } else {
+        //409: Conflict
+        res.status(409).send({
+          message: `User with ${user.username} already exists. `,
+        });
       }
     }
   );
@@ -70,7 +77,7 @@ async function checkValidPassword(req, res, next) {
   const user = req.body;
 
   db.query(
-    `SELECT * FROM users WHERE username = '${user.username}';`,
+    `SELECT * FROM users WHERE username = ?`, [user.username],
     async (err, data) => {
       if (data[0]) {
         const existingUser = data[0];
@@ -90,12 +97,10 @@ async function checkValidPassword(req, res, next) {
             password: user.password,
           };
           db.query(
-            `UPDATE users SET(?,?,?,?) WHERE username = ?`,
-            updatedUser.fullname,
-            updatedUser.email,
-            updatedUser.username,
-            updatedUser.password,
-            updatedUser.username
+            `UPDATE users SET ? WHERE username = ?`,[
+              updatedUser.password,
+              updatedUser.username
+            ]
           );
         }
       } else {
@@ -111,7 +116,11 @@ async function changeUser(req, res, next) {
   const user = req.body;
 
   db.query(
-    `UPDATE users SET fullname ='${user.fullname}', email='${user.email}' WHERE(username = '${user.username}');`,
+    `UPDATE users SET fullname = ?, email = ? WHERE username = ?`, [
+      user.fullname, 
+      user.email, 
+      user.username
+    ],
     (err, data) => {
       if (err) {
         console.log(err);
