@@ -12,6 +12,7 @@
   //import Cart from "../Cart/Cart.svelte";
   import ChangePassword from "../../Pages/Authentication/ChangePassword.svelte";
   import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
+  import Contactpage from "../../Pages/Contactpage/Contactpage.svelte";
 
 </script>
 
@@ -25,6 +26,7 @@
       <Link to="/">Home</Link>
       <Link to="/store">Store</Link>
       <Link to="/about">About</Link>
+      <Link to="/contactpage">Contact</Link>
       <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
       {#if $session}
         <Link to="/profile">Profile</Link>
@@ -36,6 +38,7 @@
   <div>
     <Route path="/" component={Frontpage}><FrontPage/></Route>
     <Route path="about" component={About}><About/></Route>
+    <Route path="contact" component={Contactpage}><Contactpage/></Route>
     <!--<Route path="cart" component={Cart}><Cart/></Route>-->
     <Route path="login" component={Login}><Login /></Route>
     <Route path="signup" component={Signup}><Signup /></Route>
