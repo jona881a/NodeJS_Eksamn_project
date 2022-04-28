@@ -1,16 +1,17 @@
 <script>
   import {Router, Link, Route } from "svelte-navigator";
   import About from "../../Pages/About/About.svelte";
-  import Homepage from "../../Pages/Home/Homepage.svelte";
+  import FrontPage from "../../Pages/FrontPage/Frontpage.svelte";
   import Login from "../../Pages/Authentication/Login.svelte";
-  import PrivateRoute from "../PrivateRoutes/PrivateRoute.svelte";
+  import PrivateRoute from "../PrivateRouteGuard/PrivateRouteGuard.svelte";
   import Profile from "../../Pages/Profile/Profile.svelte";
   import { session } from "../../stores/stores.js";
+  import { itemsInCart } from "../../stores/cartStore.js";
   import Signup from "../../Pages/Authentication/Signup.svelte";
-  import Shop from "../../Pages/Shop/Shop.svelte";
   import Forgot from "../../Pages/Authentication/Forgot.svelte";
-  import Cart from "../Cart/Cart.svelte";
+  //import Cart from "../Cart/Cart.svelte";
   import ChangePassword from "../../Pages/Authentication/ChangePassword.svelte";
+  import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
 
 </script>
 
@@ -24,7 +25,7 @@
       <Link to="/">Home</Link>
       <Link to="/store">Store</Link>
       <Link to="/about">About</Link>
-      <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <!--<span class="cart-items">({$itemsInCart})</span>--></Link>
+      <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
       {#if $session}
         <Link to="/profile">Profile</Link>
       {:else}
@@ -33,10 +34,9 @@
     </nav>
   </header>
   <div>
-    <Route path="/" component={Homepage}><Homepage/></Route>
-    <Route path="shop" component={Shop}><Shop/></Route>
+    <Route path="/" component={Frontpage}><FrontPage/></Route>
     <Route path="about" component={About}><About/></Route>
-    <Route path="cart" component={Cart}><Cart/></Route>
+    <!--<Route path="cart" component={Cart}><Cart/></Route>-->
     <Route path="login" component={Login}><Login /></Route>
     <Route path="signup" component={Signup}><Signup /></Route>
     <Route path="forgot" component={Forgot}><Forgot/></Route>
@@ -47,12 +47,11 @@
   </PrivateRoute>
 </Router>
 
-
 <style>
   header {
     display: flex;
-    justify-content: space-between;
-    background-color: #5F021F;
+  
+    background-color: #212529;
     width: 100%;
   }
 
@@ -65,7 +64,7 @@
   .siteTitle:visited,
   .siteTitle:active {
     text-decoration: none;
-    color: white;
+    color: #f8f9fa;
   }
 
   nav {
@@ -77,6 +76,5 @@
   .cart-items {
     color: #868e96;
   }
-
 
 </style>
