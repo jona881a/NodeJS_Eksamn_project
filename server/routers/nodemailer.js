@@ -4,7 +4,7 @@ import "dotenv/config";
 
 const router = Router();
 
-const transporter = await nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_EMAIL,
