@@ -12,7 +12,6 @@
   import Cart from "../Cart/Cart.svelte";
   import ChangePassword from "../../Pages/Authentication/ChangePassword.svelte";
 
-
 </script>
 
 <Router>
