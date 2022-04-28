@@ -1,16 +1,16 @@
 <script>
   import {Router, Link, Route } from "svelte-navigator";
-  import About from "../../Pages/About/About.svelte";
+  import AboutPage from "../../Pages/About/AboutPage.svelte";
   import FrontPage from "../../Pages/FrontPage/Frontpage.svelte";
-  import Login from "../../Pages/Authentication/Login.svelte";
+  import LoginPage from "../../Pages/Authentication/LoginPage.svelte";
   import PrivateRoute from "../PrivateRouteGuard/PrivateRouteGuard.svelte";
-  import Profile from "../../Pages/Profile/Profile.svelte";
+  import ProfilePage from "../../Pages/Profile/ProfilePage.svelte";
   import { session } from "../../stores/stores.js";
   import { itemsInCart } from "../../stores/cartStore.js";
-  import Signup from "../../Pages/Authentication/Signup.svelte";
-  import Forgot from "../../Pages/Authentication/Forgot.svelte";
+  import SignupPage from "../../Pages/Authentication/SignupPage.svelte";
+  import ForgotPage from "../../Pages/Authentication/ForgotPage.svelte";
   //import Cart from "../Cart/Cart.svelte";
-  import ChangePassword from "../../Pages/Authentication/ChangePassword.svelte";
+  import ChangePasswordPage from "../../Pages/Authentication/ChangePasswordPage.svelte";
   import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
 
 </script>
@@ -35,22 +35,21 @@
   </header>
   <div>
     <Route path="/" component={Frontpage}><FrontPage/></Route>
-    <Route path="about" component={About}><About/></Route>
+    <Route path="about" component={AboutPage}><AboutPage/></Route>
     <!--<Route path="cart" component={Cart}><Cart/></Route>-->
-    <Route path="login" component={Login}><Login /></Route>
-    <Route path="signup" component={Signup}><Signup /></Route>
-    <Route path="forgot" component={Forgot}><Forgot/></Route>
-    <Route path="changepassword" component={ChangePassword}><ChangePassword/></Route>
+    <Route path="login" component={LoginPage}><LoginPage /></Route>
+    <Route path="signup" component={SignupPage}><SignupPage /></Route>
+    <Route path="forgot" component={ForgotPage}><ForgotPage/></Route>
+    <Route path="changepassword" component={ChangePasswordPage}><ChangePasswordPage/></Route>
   </div>
   <PrivateRoute path="profile" let:location>
-    <Profile />
+    <ProfilePage />
   </PrivateRoute>
 </Router>
 
 <style>
   header {
     display: flex;
-  
     background-color: #212529;
     width: 100%;
   }
@@ -65,6 +64,7 @@
   .siteTitle:active {
     text-decoration: none;
     color: #f8f9fa;
+    margin-right: 20px;
   }
 
   nav {
