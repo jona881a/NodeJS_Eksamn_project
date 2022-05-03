@@ -12,5 +12,15 @@ db.query(
 );
 
 //TABLE: games
+db.query(
+  `CREATE TABLE IF NOT EXISTS games (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50),
+    platform VARCHAR(50),
+    genre VARCHAR(200),
+    company VARCHAR(50),
+    rating VARCHAR(50)
+  );`
+);
 
 db.end();

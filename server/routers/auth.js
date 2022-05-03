@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import db from "../database/createConnection.js";
@@ -15,9 +14,8 @@ async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
   db.query(
-    `SELECT * FROM users WHERE username = ?`, [
-      user.username
-    ],
+    `SELECT * FROM users WHERE username = ?`,
+    [user.username],
     async (err, data) => {
       let foundUser = data[0];
 
@@ -30,7 +28,7 @@ async function checkLoginInfo(req, res, next) {
           userToSend = {
             fullname: foundUser.fullname,
             email: foundUser.email,
-            username: foundUser.username
+            username: foundUser.username,
           };
           next();
         } else {
@@ -50,18 +48,16 @@ async function checkLoginInfo(req, res, next) {
 async function createUser(req, res, next) {
   const user = req.body;
   db.query(
-    `SELECT * FROM users WHERE username = ?`, [user.username],
+    `SELECT * FROM users WHERE username = ?`,
+    [user.username],
     async (err, data) => {
-      if (data[0]) {
+      if (!data[0]) {
         const hashedPassword = await bcrypt.hash(user.password, saltRounds);
         const newUser = { ...user, password: hashedPassword };
 
         db.query(
-          `INSERT INTO users(fullname,email,username,password) VALUES(?, ?, ?, ?)`, [
-            newUser.fullname, 
-            newUser.email, 
-            newUser.username, 
-            newUser.password]
+          `INSERT INTO users(fullname,email,username,password) VALUES(?, ?, ?, ?)`,
+          [newUser.fullname, newUser.email, newUser.username, newUser.password]
         );
         next();
       } else {
@@ -78,9 +74,10 @@ async function changepassword(req, res, next) {
   const user = req.body;
 
   db.query(
-    `SELECT * FROM users WHERE username = ?`, [user.username],
+    `SELECT * FROM users WHERE username = ?`,
+    [user.username],
     async (err, data) => {
-      let existingUser = data[0]
+      let existingUser = data[0];
 
       if (user.username == existingUser.username) {
         const existingPassword = await bcrypt.compare(
@@ -98,17 +95,13 @@ async function changepassword(req, res, next) {
             ...user,
             password: user.password,
           };
-          db.query(
-            `UPDATE users SET ? WHERE username = ?`,[
-              updatedUser.password,
-              updatedUser.username
-            ]
-          );
+          db.query(`UPDATE users SET ? WHERE username = ?`, [
+            updatedUser.password,
+            updatedUser.username,
+          ]);
         }
       } else {
-        res
-          .status(404)
-          .send({ message: "The user " });
+        res.status(404).send({ message: "The user " });
       }
     }
   );
@@ -118,31 +111,28 @@ async function updateUser(req, res, next) {
   const user = req.body;
 
   db.query(
-    `SELECT * FROM users WHERE username = ?`, [user.username],
+    `SELECT * FROM users WHERE username = ?`,
+    [user.username],
     async (err, data) => {
-      let foundUser = data[0]
+      let foundUser = data[0];
 
       if (foundUser != undefined && user.username == foundUser.username) {
         db.query(
-          `UPDATE users SET fullname = ?, email = ? WHERE username = ?`, [
-            user.fullname, 
-            user.email, 
-            user.username
-          ],
+          `UPDATE users SET fullname = ?, email = ? WHERE username = ?`,
+          [user.fullname, user.email, user.username],
           (err, data) => {
             if (err) {
               console.log(err);
-              res.status(404).send({ message: "An error has occured, user cannot be found" });
+              res.status(404).send({
+                message: "An error has occured, user cannot be found",
+              });
             }
             userToSend = user;
             next();
           }
         );
-        
       } else {
-        res
-          .status(404)
-          .send({ message: "The user cannot be found" });
+        res.status(404).send({ message: "The user cannot be found" });
       }
     }
   );
