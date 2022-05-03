@@ -15,13 +15,13 @@ async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
   db.query(
-    (`SELECT * FROM users WHERE username = ?, password = ?`, [
-      user.username, 
-      user.password
-    ]),
+    `SELECT * FROM users WHERE username = ?`, [
+      user.username
+    ],
     async (err, data) => {
-      if (data[0]) {
-        let foundUser = data[0];
+      let foundUser = data[0];
+
+      if (foundUser != undefined && user.username == foundUser.username) {
         const correctPassword = await bcrypt.compare(
           user.password,
           foundUser.password
@@ -30,13 +30,13 @@ async function checkLoginInfo(req, res, next) {
           userToSend = {
             fullname: foundUser.fullname,
             email: foundUser.email,
-            username: foundUser.username,
+            username: foundUser.username
           };
+          next();
         } else {
           res
             .status(404)
             .send({ message: "Username or password is not correct" });
-          next();
         }
       } else {
         res
@@ -52,16 +52,16 @@ async function createUser(req, res, next) {
   db.query(
     `SELECT * FROM users WHERE username = ?`, [user.username],
     async (err, data) => {
-      if (!data[0]) {
+      if (data[0]) {
         const hashedPassword = await bcrypt.hash(user.password, saltRounds);
         const newUser = { ...user, password: hashedPassword };
 
         db.query(
           `INSERT INTO users(fullname,email,username,password) VALUES(?, ?, ?, ?)`, [
-            user.fullname, 
-            user.email, 
-            user.username, 
-            user.password]
+            newUser.fullname, 
+            newUser.email, 
+            newUser.username, 
+            newUser.password]
         );
         next();
       } else {
@@ -74,14 +74,15 @@ async function createUser(req, res, next) {
   );
 }
 
-async function checkValidPassword(req, res, next) {
+async function changepassword(req, res, next) {
   const user = req.body;
 
   db.query(
     `SELECT * FROM users WHERE username = ?`, [user.username],
     async (err, data) => {
-      if (data[0]) {
-        const existingUser = data[0];
+      let existingUser = data[0]
+
+      if (user.username == existingUser.username) {
         const existingPassword = await bcrypt.compare(
           user.password,
           existingUser.password
@@ -107,35 +108,49 @@ async function checkValidPassword(req, res, next) {
       } else {
         res
           .status(404)
-          .send({ message: "The user doesn't exist with the specified email" });
+          .send({ message: "The user " });
       }
     }
   );
 }
 
-async function changeUser(req, res, next) {
+async function updateUser(req, res, next) {
   const user = req.body;
 
   db.query(
-    `UPDATE users SET fullname = ?, email = ? WHERE username = ?`, [
-      user.fullname, 
-      user.email, 
-      user.username
-    ],
-    (err, data) => {
-      if (err) {
-        console.log(err);
-        res.status(404).send({ message: "The user cannot be found" });
+    `SELECT * FROM users WHERE username = ?`, [user.username],
+    async (err, data) => {
+      let foundUser = data[0]
+
+      if (foundUser != undefined && user.username == foundUser.username) {
+        db.query(
+          `UPDATE users SET fullname = ?, email = ? WHERE username = ?`, [
+            user.fullname, 
+            user.email, 
+            user.username
+          ],
+          (err, data) => {
+            if (err) {
+              console.log(err);
+              res.status(404).send({ message: "An error has occured, user cannot be found" });
+            }
+            userToSend = user;
+            next();
+          }
+        );
+        
+      } else {
+        res
+          .status(404)
+          .send({ message: "The user cannot be found" });
       }
-      userToSend = user;
-      next();
     }
   );
 }
 
-/***************************/
-/***********Routes**********/
-/***************************/
+/****************************/
+/***********Routes***********/
+/****************************/
 
 router.post("/auth/login", checkLoginInfo, (req, res) => {
   req.session.user = userToSend;
@@ -154,12 +169,12 @@ router.post("/auth/signup", createUser, (req, res) => {
   });
 });
 
-router.patch("/auth/changepassword", checkValidPassword, (req, res) => {
+router.patch("/auth/changepassword", changepassword, (req, res) => {
   res.status(200).send({ message: "Password changed successfully" });
   //Send a mail to the users email with a recent change
 });
 
-router.put("/auth/changeuser", changeUser, (req, res) => {
+router.put("/auth/update", updateUser, (req, res) => {
   res.status(200).send({ changedUser: userToSend });
 });
 
