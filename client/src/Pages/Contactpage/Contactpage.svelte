@@ -1,6 +1,7 @@
 <script>
 
     let from;
+    let to;
     let subject;
     let text;
 
@@ -27,7 +28,7 @@
 
 <div id="mailFormDiv">
     <form id="mailForm" on:submit={handleSubmit}>
-        <input id="fromField" bind:value={from} placeholder="Email" required><br>
+        <input id="fromField" bind:value={from} placeholder="from" required><br>
         <input id="subjectField" bind:value={subject} placeholder="Subject" required><br>
         <textarea id="textField" bind:value={text} placeholder="Type here..." cols="40" rows="5" required></textarea><br>
         <button id="sendInfo" type="submit">Send</button>
@@ -38,7 +39,7 @@
 
 <style>
 
-    #fromField, #subjectField, #textField, #sendInfo{
+    #fromField, #toField, #subjectField, #textField, #sendInfo{
         width: 400px;
         padding: 10px;
     }
