@@ -6,13 +6,18 @@
   const location = useLocation();
 
   $: if (!$session) {
-    navigate("/contact", {
+    navigate("/login", {
       state: { from: $location.pathname },
       replace: true,
     });
+  }else{
+    console.log("session success")
   }
+
+ 
 </script>
 
 {#if $session}
   <slot />
 {/if}
+

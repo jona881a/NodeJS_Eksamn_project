@@ -36,19 +36,17 @@
     </nav>
   </header>
   <div>
-    <Route path="/" component={Frontpage}><FrontPage/></Route>
-    <Route path="about" component={AboutPage}><AboutPage/></Route>
-    <Route path="about" component={AboutPage}><AboutPage/></Route>
-    <Route path="contact" component={Contactpage}><Contactpage/></Route>
+    <Route path="/" component={FrontPage}/>
+    <Route path="about" component={AboutPage}/>
+    <Route path="about" component={AboutPage}/>
+    <Route path="contact" component={Contactpage}/>
     <!--<Route path="cart" component={Cart}><Cart/></Route>-->
-    <Route path="login" component={LoginPage}><LoginPage /></Route>
-    <Route path="signup" component={SignupPage}><SignupPage /></Route>
-    <Route path="forgot" component={ForgotPage}><ForgotPage/></Route>
-    <Route path="changepassword" component={ChangePasswordPage}><ChangePasswordPage/></Route>
+    <Route path="login" component={LoginPage}/>
+    <Route path="signup" component={SignupPage}/>
+    <Route path="forgot" component={ForgotPage}/>
+    <Route path="changepassword" component={ChangePasswordPage}/>
   </div>
-  <PrivateRoute path="profile" let:location>
-    <ProfilePage />
-  </PrivateRoute>
+  <PrivateRoute path="profile" component={ProfilePage} let:location/>
 </Router>
 
 <style>
