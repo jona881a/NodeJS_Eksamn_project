@@ -2,9 +2,7 @@
 import Navbar from "./Components/Navbar/Navbar.svelte";
 
 </script>
-	<main>
-		<Navbar />
-	</main>
+	<Navbar />
 <style>
 	
 </style>

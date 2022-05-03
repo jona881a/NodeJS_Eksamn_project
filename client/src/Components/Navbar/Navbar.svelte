@@ -16,7 +16,7 @@
 
 </script>
 
-<Router primary={false}>
+<Router>
   <header>
     <h1>
       <a href="/" class="siteTitle">Digi-keystore</a>
