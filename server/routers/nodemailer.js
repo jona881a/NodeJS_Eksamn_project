@@ -5,6 +5,9 @@ dotenv.config();
 const router = Router();
 
 const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  secure: false,
   service: "gmail",
   auth: {
     user: process.env.USER,
@@ -17,21 +20,23 @@ router.post("/sendmail", (req, res) => {
   const subject = req.body.subject;
   const text = req.body.text;
 
-  const mailOptions = {
-    from: from,
-    to: process.env.USER,
-    subject: subject,
-    text: text,
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-      res.send({ message: "mail sent" });
+  transporter.sendMail(
+    {
+      to: process.env.USER,
+      subject: subject,
+      html: `<h1>${from}</h1><br>
+      <h2>${subject}</h3><br>
+      <p>${text}</p>`,
+    },
+    function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+        res.send({ message: "mail sent" });
+      }
     }
-  });
+  );
 });
 
 export default router;
