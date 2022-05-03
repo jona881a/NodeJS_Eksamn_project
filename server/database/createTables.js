@@ -1,4 +1,4 @@
-import db from "./createSchemas.js";
+import db from "./createConnection.js";
 
 //TABLE: users
 db.query(
