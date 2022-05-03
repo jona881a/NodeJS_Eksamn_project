@@ -6,7 +6,7 @@
   const location = useLocation();
 
   $: if (!$session) {
-    navigate("/login", {
+    navigate("/contact", {
       state: { from: $location.pathname },
       replace: true,
     });
