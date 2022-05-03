@@ -25,7 +25,7 @@ async function checkLoginInfo(req, res, next) {
           user.password,
           foundUser.password
         );
-        if (!correctPassword) {
+        if (correctPassword) {
           userToSend = {
             fullname: foundUser.fullname,
             email: foundUser.email,
