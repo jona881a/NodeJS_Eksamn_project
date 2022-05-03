@@ -1,14 +1,14 @@
 import { Router } from "express";
 import nodemailer from "nodemailer";
-import "dotenv/config";
-
+import dotenv from "dotenv";
+dotenv.config();
 const router = Router();
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
+    user: process.env.USER,
+    pass: process.env.PASS,
   },
 });
 
@@ -19,7 +19,7 @@ router.post("/sendmail", (req, res) => {
 
   const mailOptions = {
     from: from,
-    to: process.env.EMAIL_EMAIL,
+    to: process.env.USER,
     subject: subject,
     text: text,
   };
