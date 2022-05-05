@@ -14,6 +14,7 @@
   import ChangePasswordPage from "../../Pages/Authentication/ChangePasswordPage.svelte";
   import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
   import Contactpage from "../../Pages/Contactpage/Contactpage.svelte";
+  import ProductPage from "../../Pages/Store/ProductPage.svelte";
 
 </script>
 
@@ -26,6 +27,7 @@
     <nav>
       <Link to="/">Home</Link>
       <Link to="/store">Store</Link>
+      <Link to="/product">Product - delete</Link>
       <Link to="/about">About</Link>
       <Link to="/contact">Contact</Link>
       <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
@@ -40,7 +42,7 @@
   <div>
     <Route path="/" component={FrontPage}/>
     <Route path="about" component={AboutPage}/>
-    <Route path="about" component={AboutPage}/>
+    <Route path="product" component={ProductPage}/>
     <Route path="contact" component={Contactpage}/>
     <!--<Route path="cart" component={Cart}><Cart/></Route>-->
     <Route path="login" component={LoginPage}/>
