@@ -38,6 +38,7 @@ if (deleteMode) {
     genre VARCHAR(200),
     company VARCHAR(50),
     releasedate VARCHAR(10),
+    price DOUBLE,
     images_id INT,
     FOREIGN KEY (images_id) REFERENCES gameimages(id)
   );`

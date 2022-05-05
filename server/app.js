@@ -4,6 +4,7 @@ import session from "express-session";
 import authRouter from "./routers/auth.js";
 import mailRouter from "./routers/nodemailer.js";
 import adminRouter from "./routers/admin.js";
+import storeRouter from "./routers/store.js";
 
 import http from "http";
 
@@ -19,9 +20,11 @@ app.use(
     cookie: { secure: false },
   })
 );
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+
 app.use(authRouter);
 app.use(mailRouter);
 app.use(adminRouter);
+app.use(storeRouter);
 
 server.listen(3000);

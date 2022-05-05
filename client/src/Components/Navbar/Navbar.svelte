@@ -15,6 +15,7 @@
   import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
   import Contactpage from "../../Pages/Contactpage/Contactpage.svelte";
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
+import StorePage from "../../Pages/Store/StorePage.svelte";
 
 </script>
 
@@ -41,6 +42,7 @@
   </header>
   <div>
     <Route path="/" component={FrontPage}/>
+    <Route path="store" component={StorePage} />
     <Route path="about" component={AboutPage}/>
     <Route path="product" component={ProductPage}/>
     <Route path="contact" component={Contactpage}/>
