@@ -34,19 +34,36 @@
   }
   
   </script>
-  <div>
-    <h3>Login</h3>
+
+
+  <div id="loginDiv">
+    <h3 id="loginPageHeadline">Login</h3>
     <div class={displayErrorBox}>{errorMessage}</div>
-    <input class="login" bind:value={username} name="username" type="text" placeholder="Username">
-    <br/>
-    <input class="password" bind:value={password} name="password" type="password" placeholder="Password"> 
-    <br/>
-    <a href="/forgot">Forgot Password?</a>
-    <br/>
-    <button on:click={handleSubmit}>Login</button>
+    <input class="login" bind:value={username} name="username" type="text" placeholder="Username"><br/>
+    <input class="password" bind:value={password} name="password" type="password" placeholder="Password"><br/>
+    <a href="/forgot">Forgot Password?</a><br/>
+    <button id="loginButton" on:click={handleSubmit}>Login</button><br>
     <a href="/signup">Don't have an Account? Click here</a>
   </div>
+
+  
   <style>
+
+    #loginDiv{
+      width: 500px;
+      margin: 50px auto;
+    }
+
+    #loginPageHeadline{
+      font-size: 20px;;
+    }
+
+    .login, .password, #loginButton{
+      width: 400px;
+      padding: 10px;
+      border: 1px solid black;
+    }
+
     .errorBox-display {
       display: block;
       width:fit-content;

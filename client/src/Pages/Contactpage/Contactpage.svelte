@@ -38,10 +38,20 @@
         <button id="sendInfo" type="submit">Send</button>
     </form>
 
-
+ 
 </div>
 
 <style>
+
+    .headlineDiv{
+        width: 400px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+    }
+    .headline{
+        font-size: 50px;
+    }
 
     #fromField, #subjectField, #textField, #sendInfo{
         width: 400px;
@@ -51,7 +61,7 @@
     #mailFormDiv{
         background-color: lightgray;
         width: 100%;
-        margin: 100px auto;
+        margin: 20px auto;
         padding: 10px;
         display: flex;
         justify-content: center;
