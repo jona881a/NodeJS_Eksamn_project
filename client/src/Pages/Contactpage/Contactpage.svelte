@@ -26,6 +26,10 @@
 
 </script>
 
+<div class="headlineDiv">
+    <h1 class="headline">Contact us</h1>
+</div>
+
 <div id="mailFormDiv">
     <form id="mailForm" on:submit={handleSubmit}>
         <input id="fromField" bind:value={from} placeholder="from" required><br>
@@ -39,9 +43,10 @@
 
 <style>
 
-    #fromField, #toField, #subjectField, #textField, #sendInfo{
+    #fromField, #subjectField, #textField, #sendInfo{
         width: 400px;
         padding: 10px;
+        border: 1px solid black;
     }
     #mailFormDiv{
         background-color: lightgray;

@@ -19,14 +19,14 @@
 <Router>
   <header>
     <h1>
-      <a href="/" class="siteTitle">Digi-keystore</a>
+      <a href="/" class="siteTitle">Digi-KeyStore</a>
     </h1>
     
     <nav>
       <Link to="/">Home</Link>
       <Link to="/store">Store</Link>
       <Link to="/about">About</Link>
-      <Link to="/contactpage">Contact</Link>
+      <Link to="/contact">Contact</Link>
       <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
       {#if $session}
         <Link to="/profile">Profile</Link>
