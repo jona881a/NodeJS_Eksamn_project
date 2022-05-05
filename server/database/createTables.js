@@ -1,26 +1,46 @@
 import db from "./createConnection.js";
 
-//TABLE: users
-db.query(
-  `CREATE TABLE IF NOT EXISTS users (
+let deleteMode = false;
+
+if (deleteMode) {
+  db.query(`DROP TABLE IF EXISTS users;`);
+  db.query(`DROP TABLE IF EXISTS games;`);
+  db.query(`DROP TABLE IF EXISTS gameimages;`);
+} else {
+  //TABLE: users
+  db.query(
+    `CREATE TABLE IF NOT EXISTS users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     fullname VARCHAR(50),
     email VARCHAR(50),
     username VARCHAR(20),
     password VARCHAR(255)
   );`
-);
+  );
 
-//TABLE: games
-db.query(
-  `CREATE TABLE IF NOT EXISTS games (
+  //TABLE: gameimages
+  db.query(
+    `CREATE TABLE IF NOT EXISTS gameimages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    img1 MEDIUMTEXT,
+    img2 MEDIUMTEXT,
+    img3 MEDIUMTEXT,
+    img4 MEDIUMTEXT,
+    img5 MEDIUMTEXT
+  );`
+  );
+
+  //TABLE: games
+  db.query(
+    `CREATE TABLE IF NOT EXISTS games (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(50),
-    platform VARCHAR(50),
     genre VARCHAR(200),
     company VARCHAR(50),
-    releasedate VARCHAR(10)
+    releasedate VARCHAR(10),
+    images_id INT,
+    FOREIGN KEY (images_id) REFERENCES gameimages(id)
   );`
-);
-
+  );
+}
 db.end();

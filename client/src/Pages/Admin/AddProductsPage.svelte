@@ -2,13 +2,15 @@
 	let  avatar, fileinput;
 	
 	const onFileSelected =(e)=>{
-  let image = e.target.files[0];
-            let reader = new FileReader();
-            reader.readAsDataURL(image);
-            reader.onload = e => {
-                 avatar = e.target.result
-            };
-}
+  	let image = e.target.files[0];
+  	let reader = new FileReader();
+		
+  	reader.readAsDataURL(image);
+    reader.onload = e => {
+      avatar = e.target.result
+			console.log(avatar);
+    };
+	}
 	
 </script>
 <div id="app">

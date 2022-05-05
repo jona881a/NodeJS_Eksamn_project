@@ -29,6 +29,7 @@
       <Link to="/about">About</Link>
       <Link to="/contact">Contact</Link>
       <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
+      <Link to="/addproducts">AddProducts - DELETE ME</Link>
       {#if $session}
         <Link to="/profile">Profile</Link>
       {:else}

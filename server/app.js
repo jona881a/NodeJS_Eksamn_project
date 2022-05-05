@@ -3,7 +3,7 @@ import cors from "cors";
 import session from "express-session";
 import authRouter from "./routers/auth.js";
 import mailRouter from "./routers/nodemailer.js";
-
+import adminRouter from "./routers/admin.js";
 
 import http from "http";
 
@@ -11,14 +11,17 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors());
-app.use(session({
+app.use(
+  session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
-}));
+    cookie: { secure: false },
+  })
+);
 app.use(express.json());
 app.use(authRouter);
 app.use(mailRouter);
+app.use(adminRouter);
 
 server.listen(3000);
