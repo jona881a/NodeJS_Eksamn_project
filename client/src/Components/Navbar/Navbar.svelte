@@ -3,7 +3,7 @@
   import AboutPage from "../../Pages/About/AboutPage.svelte";
   import FrontPage from "../../Pages/FrontPage/Frontpage.svelte";
   import LoginPage from "../../Pages/Authentication/LoginPage.svelte";
-  import PrivateRoute from "../PrivateRouteGuard/PrivateRouteGuard.svelte";
+  import PrivateRoute from "../PrivateRouteGuard/PrivateRoute.svelte";
   import ProfilePage from "../../Pages/Profile/ProfilePage.svelte";
   import { session } from "../../stores/stores.js";
   import { itemsInCart } from "../../stores/cartStore.js";
@@ -31,7 +31,7 @@
       {#if $session}
         <Link to="/profile">Profile</Link>
       {:else}
-      <Link to="/profile">Login</Link>
+        <Link to="/profile">Login</Link>
       {/if}
     </nav>
   </header>
@@ -45,6 +45,7 @@
     <Route path="signup" component={SignupPage}/>
     <Route path="forgot" component={ForgotPage}/>
     <Route path="changepassword" component={ChangePasswordPage}/>
+    <PrivateRoute path="profile" component={ProfilePage} let:location/>
   </div>
   <PrivateRoute path="profile" component={ProfilePage} let:location/>
 </Router>
