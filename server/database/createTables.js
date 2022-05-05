@@ -19,7 +19,7 @@ db.query(
     platform VARCHAR(50),
     genre VARCHAR(200),
     company VARCHAR(50),
-    rating VARCHAR(50)
+    releasedate VARCHAR(10)
   );`
 );
 
