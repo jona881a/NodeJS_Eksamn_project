@@ -6,9 +6,13 @@
   onMount( async () => {
 		const response = await fetch("http://localhost:3000/store/getallgames");
     const data = response.json(); //The reason why it is handled this way is because it gets undefined when destructuring
-    data.then(array =>  {
-      games = array.data;
-    });
+    data.then(data =>  {
+      if(data.errorMessage) {
+        console.error(data.errorMessage);
+      } else {
+        games = data.data;
+      }
+    })
   });
 </script>
 
