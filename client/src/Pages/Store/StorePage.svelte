@@ -31,7 +31,7 @@
 
 <style>
   .container {
-    width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -41,6 +41,7 @@
 
   .games-in-store {
     display: inline-block;
+    margin-left: 20px;
   }
 
   .searchbar {
@@ -58,6 +59,10 @@
     .wrapper {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container {
+      margin-left: 100px;
     }
   }
 </style>

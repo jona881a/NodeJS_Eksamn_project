@@ -27,58 +27,79 @@
 		reader.readAsDataURL(image);
 
     reader.onload = e => {
+			avatar = e.target.result;
       imageAsUrl = e.target.result;
     };
 	}
 	
 </script>
-<div id="app">
-	<h1>Add Game to gamecatalog</h1>
 
-	<div class="formbody">
-		<label for="title">Game title</label>
-		<input id="title" bind:value={title} placeholder = "" />
+	<div class="container">
+		<div class="row">
+			<div class="preview-image">
+				{#if avatar}
+				<img class="avatar" src="{avatar}" alt="d" />
+				{:else}
+				<img class="avatar" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="" /> 
+				{/if}
+			</div>
+			<div class="formbody">
+				<h1>Add Game to gamecatalog</h1>
 
-		<label for="genre">Game genre(s)</label>
-		<input id="genre" bind:value={genre} placeholder = "separate with commas" />
-
-		<label for="company">Game dev company</label>
-		<input id="company" bind:value={company} />
-
-		<label for="releasedate">Game releasedate</label>
-		<input id="releasedate" bind:value={releasedate} />
-		<button on:click={handleSubmit}>Add game</button>
-	</div>
-  
-        {#if avatar}
-        <img class="avatar" src="{avatar}" alt="d" />
-        {:else}
-        <img class="avatar" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="" /> 
-        {/if}
+				<label for="title">Game title</label>
+				<input id="title" bind:value={title} placeholder = "" />
+		
+				<label for="genre">Game genre(s)</label>
+				<input id="genre" bind:value={genre} placeholder = "separate with commas" />
+		
+				<label for="company">Game dev company</label>
+				<input id="company" bind:value={company} />
+		
+				<label for="releasedate">Game releasedate</label>
+				<input id="releasedate" bind:value={releasedate} />
+				
 				<img class="upload" src="https://static.thenounproject.com/png/625182-200.png" alt="" on:click={()=>{fileinput.click();}} />
-        <div class="chan" on:click={()=>{fileinput.click();}}>Choose Image</div>
-        <input style="display:none" type="file" accept=".jpg, .jpeg, .png " on:change={(e) => onFileSelected(e)} bind:this={fileinput} >
-
-</div>
+				<div class="chan" on:click={()=>{fileinput.click();}}>Choose Image</div>
+				<input style="display:none" type="file" accept=".jpg, .jpeg, .png " on:change={(e) => onFileSelected(e)} bind:this={fileinput} >
+				
+				<button on:click={handleSubmit}>Add game</button>
+			</div>
+		</div>
+	</div>
 <style>
-	#app{
-	display:flex;
-		align-items:center;
-		justify-content:center;
-		flex-flow:column;
-}
+
+	.row {
+		display: flex;
+	}
+
+	.preview-image {
+		width: 50%;
+		justify-self: center;
+	}
+
+	.formbody {
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	input {
+		padding: 10px 20px;
+		width: 600px;
+	}
  
 	.upload{
-		display:flex;
-	height:50px;
+		height:50px;
 		width:50px;
 		cursor:pointer;
 	}
-	.avatar{
-		display:flex;
-		height:200px;
-		width:200px;
+
+	.avatar {
+		overflow: hidden;
+		width: 100%;
 	}
+
 </style>
 
  
