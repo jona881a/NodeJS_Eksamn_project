@@ -16,7 +16,7 @@
 <div class="card" on:click={handleOpenDetailView}>
   <div class="card-img">
     <!-- svelte-ignore a11y-missing-attribute -->
-    <img src={product.images[0]} width="200" height="200"/>
+    <img src={product.cover_image} width="200" height="200"/>
   </div>
   <div class="card-body">
     <div class="game-title">

@@ -1,10 +1,20 @@
 <script>
+    import { selectedGame } from '../../stores/stores.js'
+    import Carousel from 'svelte-carousel'
 
 </script>
 
 <div class="container">
-    <div class="game-image-carousel">
 
+
+    <div class="game-image-carousel">
+        <Carousel autoplay
+        autoplayDuration={5000}
+        >
+        {#each $selectedGame.carousel_images as image}
+          <img src="{image}" alt="screenshots">
+        {/each}
+        </Carousel>
     </div>
     <div class="game-body">
         <div>
@@ -30,7 +40,10 @@
     }
     .game-image-carousel {
         width: 898px;
+        max-width: 898px;
         height: 300px;
+        max-height: 300px;
+        
         border-width: 1px;
         border-style: solid;
         border-color: black;
