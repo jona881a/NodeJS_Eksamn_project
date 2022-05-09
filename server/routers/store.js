@@ -13,7 +13,7 @@ router.get("/store/getallgames", (req, res) => {
         let gameArray = [];
 
         data.forEach((element) => {
-          element.images = JSON.parse(element.images);
+          element.carousel_images = JSON.parse(element.carousel_images);
           gameArray.push(element);
         });
         res.send({ data: gameArray });

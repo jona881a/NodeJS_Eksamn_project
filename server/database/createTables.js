@@ -22,7 +22,8 @@ if (deleteMode) {
   db.query(
     `CREATE TABLE IF NOT EXISTS gameimages (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    images JSON
+    cover_image MEDIUMTEXT, 
+    carousel_images JSON
   );`
   );
 
