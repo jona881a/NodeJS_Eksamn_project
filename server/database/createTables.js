@@ -22,11 +22,7 @@ if (deleteMode) {
   db.query(
     `CREATE TABLE IF NOT EXISTS gameimages (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    img1 MEDIUMTEXT,
-    img2 MEDIUMTEXT,
-    img3 MEDIUMTEXT,
-    img4 MEDIUMTEXT,
-    img5 MEDIUMTEXT
+    images MEDIUMTEXT
   );`
   );
 

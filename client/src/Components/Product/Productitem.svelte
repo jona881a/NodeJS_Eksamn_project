@@ -21,14 +21,25 @@
     <div class="game-genre">
       <p>{product.genre}</p>
     </div>
-    <button class="card-purchase-btn" on:click={handleBuyGame}>
-      Buy 
-      <i class="fa-solid fa-basket-shopping"></i>
-    </button>
+    <div class="card-footer">
+      <p class="game-price">{product.price}</p>
+      <button class="card-purchase-btn" on:click={handleBuyGame}>
+        Buy 
+        <i class="fa-solid fa-basket-shopping"></i>
+      </button>
+    </div>
   </div>
 </div>
 
 <style>
+  .card {
+    width: 20em;
+  }
+
+  .game-price {
+    display: inline-block;
+  }
+
   .card-purchase-btn {
     padding: 10px 15px;
     background-color: #212529;
