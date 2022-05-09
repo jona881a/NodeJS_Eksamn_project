@@ -10,7 +10,13 @@ router.get("/store/getallgames", (req, res) => {
       if (err) {
         res.send({ errorMessage: err });
       } else {
-        res.send({ data });
+        let gameArray = [];
+
+        data.forEach((element) => {
+          element.images = JSON.parse(element.images);
+          gameArray.push(element);
+        });
+        res.send({ data: gameArray });
       }
     }
   );

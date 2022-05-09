@@ -3,6 +3,7 @@
     export let product;
 
     function handleBuyGame() {
+      //product.images.
       selectedGame.set(product);
       console.log($selectedGame);
     }
