@@ -1,6 +1,7 @@
 import { Router } from "express";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import htmlMailTemplate from "../html/varificationmailTemplate.js";
 dotenv.config();
 const router = Router();
 
@@ -27,6 +28,28 @@ router.post("/sendmail", (req, res) => {
       html: `<h1>${from}</h1><br>
       <h2>${subject}</h3><br>
       <p>${text}</p>`,
+    },
+    function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+        res.send({ message: "mail sent" });
+      }
+    }
+  );
+});
+
+router.post("/sendmailvarification", (req, res) => {
+  const to = req.body.email;
+  console.log(to);
+
+  transporter.sendMail(
+    {
+      from: process.env.USER,
+      to: to,
+      subject: "Welcome",
+      html: htmlMailTemplate,
     },
     function (error, info) {
       if (error) {
