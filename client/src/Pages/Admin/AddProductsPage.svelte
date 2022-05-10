@@ -8,8 +8,6 @@
 		cover_image = imageUrlArray[0];
 		imageUrlArray.splice(0,1);
 
-		console.log(imageUrlArray);
-
 		const response = await fetch("http://localhost:3000/admin/addproducts", {
 			method: "POST",
       headers: {
@@ -31,8 +29,6 @@
   	let image = e.target.files[0];
 		imageArray.push(image);
 		imageArray = [...imageArray];
-	
-		console.log(imageArray);
 
   	let reader = new FileReader();
 
@@ -75,20 +71,10 @@
 				<div class="image-upload-div">
 					<div class="image-upload">
 						<img class="upload" src="https://static.thenounproject.com/png/625182-200.png" alt="" on:click={()=>{fileinput.click();}} />
-						<div class="chan" on:click={()=>{fileinput.click();}}>Choose Image</div>
+						<div class="chan" on:click={()=>{fileinput.click();}}>Choose Image(s)</div>
 						<input style="display:none" type="file" accept=".jpg, .jpeg, .png " on:change={(e) => onFileSelected(e)} bind:this={fileinput} >
 					</div>
 					<button on:click={handleSubmit}>Add game</button>
-				</div>
-				<div class="fileupload-list">
-					{#if imageArray.length !== 0}
-					<h3>Images added</h3>
-					{/if}
-					<ul>
-						{#each imageArray as uploadedImage}
-							<li>{uploadedImage.file}</li>
-						{/each}
-					</ul>
 				</div>
 			</div>
 		</div>
