@@ -31,7 +31,7 @@
 
 <style>
   .container {
-    max-width: 1200px;
+    max-width: 80%;
     margin: 0 auto;
   }
 
@@ -53,7 +53,7 @@
     border-radius: 20px;
   }
 
-  @media screen and (max-width: 1440px) {
+  @media screen and (max-width: 1850px) {
     .wrapper {
       display: grid;
       grid-template-columns: repeat(3, 1fr);

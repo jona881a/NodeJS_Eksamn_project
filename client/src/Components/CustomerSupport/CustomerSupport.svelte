@@ -4,7 +4,11 @@ import CustomerSupportChatBox from "./CustomerSupportChatBox.svelte";
   let chatOpened = false;
 
   function handleOnChatOpened() {
-    chatOpened = true
+    if(chatOpened) {
+      chatOpened = false;
+    } else {
+      chatOpened = true;
+    }
   }
 
 </script>

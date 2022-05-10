@@ -34,11 +34,11 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
       <Link  to="/contact">Contact</Link>
       <Link  to="/addproducts">AddProducts - DELETE ME</Link>
       {#if $session}
-        <Link class="left" to="/profile">{$session.user.username}</Link>
+        <Link class="profile" to="/profile">{$session.user.username}</Link>
       {:else}
-        <Link class="left" to="/profile">Login</Link>
+        <Link class="profile" to="/profile">Login</Link>
       {/if}
-        <Link class="right" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
+        <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
     </nav>
   </header>
   <div>
@@ -64,7 +64,6 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
    
   }
 
-
   h1 {
     padding-left: 10px;
     display: inline-block;
@@ -80,20 +79,26 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
   }
 
   nav {
+    display: flex;
+    gap: 10px;
     align-self: center;
     font-size: 18px;
     padding-right: 10px;
     width: 100%;
-
   }
+
+  :global(.profile) {
+    justify-items: flex-end;
+  }
+
+  /*
   nav :global(.right) {
    margin-right: 1px;
   }
   nav :global(.left) {
    margin-left: 300px;
   }
-
-
+  */
   .cart-items {
     color: #868e96;
   }
