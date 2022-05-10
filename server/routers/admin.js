@@ -7,11 +7,12 @@ router.post("/admin/addproducts", (req, res) => {
   const gameproduct = req.body;
 
   db.query(
-    `INSERT INTO gameimages(img1) VALUES(?);`,
-    [gameproduct.image],
+    `INSERT INTO gameimages(cover_image, carousel_images) VALUES(?, JSON_ARRAY(?));`,
+    [gameproduct.cover_image, gameproduct.carousel_images],
     (err, data) => {
       if (err) {
         res.send({ errorMessage: err });
+        console.log(err);
       } else if (data.affectedRows === 1) {
         db.query(
           `SELECT * FROM gameimages ORDER BY id DESC LIMIT 1;`,
