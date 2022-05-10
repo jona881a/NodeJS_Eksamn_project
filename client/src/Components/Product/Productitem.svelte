@@ -1,9 +1,11 @@
 <script>
   import { selectedGame } from "../../stores/stores.js";
-    export let product;
+  import { cartContents, itemsInCart } from "../../stores/cartStore.js";
+  export let product;
 
     function handleBuyGame() {
-      
+      itemsInCart.update(items => items + 1);
+      cartContents.update(contents => [...contents, wine])
     }
 
     function handleOpenDetailView() {

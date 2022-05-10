@@ -35,6 +35,11 @@
     margin: 0 auto;
   }
 
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
   .store-header {
     /*display: flex;*/
   }

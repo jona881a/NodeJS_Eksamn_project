@@ -17,6 +17,7 @@
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
 import StorePage from "../../Pages/Store/StorePage.svelte";
 
+
 </script>
 
 <Router>
@@ -26,18 +27,18 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
     </h1>
     
     <nav>
-      <Link to="/">Home</Link>
-      <Link to="/store">Store</Link>
-      <Link to="/product">Product - delete</Link>
-      <Link to="/about">About</Link>
-      <Link to="/contact">Contact</Link>
-      <Link to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
-      <Link to="/addproducts">AddProducts - DELETE ME</Link>
+      <Link  to="/">Home</Link>
+      <Link  to="/store">Store</Link>
+      <Link  to="/product">Product - delete</Link>
+      <Link  to="/about">About</Link>
+      <Link  to="/contact">Contact</Link>
+      <Link  to="/addproducts">AddProducts - DELETE ME</Link>
       {#if $session}
-        <Link to="/profile">Profile</Link>
+        <Link class="left" to="/profile">{$session.user.username}</Link>
       {:else}
-        <Link to="/profile">Login</Link>
+        <Link class="left" to="/profile">Login</Link>
       {/if}
+        <Link class="right" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
     </nav>
   </header>
   <div>
@@ -60,12 +61,14 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
   header {
     display: flex;
     background-color: #212529;
-    width: 100%;
+   
   }
+
 
   h1 {
     padding-left: 10px;
     display: inline-block;
+    width: 350px;
   }
   .siteTitle,
   .siteTitle:hover,
@@ -80,7 +83,16 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
     align-self: center;
     font-size: 18px;
     padding-right: 10px;
+    width: 100%;
+
   }
+  nav :global(.right) {
+   margin-right: 1px;
+  }
+  nav :global(.left) {
+   margin-left: 300px;
+  }
+
 
   .cart-items {
     color: #868e96;
