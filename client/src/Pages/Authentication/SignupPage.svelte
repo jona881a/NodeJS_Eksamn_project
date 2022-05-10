@@ -11,6 +11,8 @@
   let password;
   let signedUp=false;
 
+  let to;
+
   let redirectTime = 5;
 function redirectTimer(){
   const redirect = setInterval(function(){
@@ -45,11 +47,23 @@ function redirectTimer(){
       })
       .catch(error => console.log(error));
       signedUp = true;
-      redirectTimer();
+      sendMailVarification();
   }
 
 
-
+async function sendMailVarification(){
+  const response = await fetch("http://localhost:3000/sendmailvarification", {
+        method: 'POST',
+        body: JSON.stringify({
+           email
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    const json = await response.json();
+    redirectTimer();
+}
 
   
 </script>

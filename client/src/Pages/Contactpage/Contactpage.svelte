@@ -1,7 +1,6 @@
 <script>
 
     let from;
-    let to;
     let subject;
     let text;
 
