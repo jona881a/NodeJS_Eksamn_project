@@ -79,6 +79,7 @@ h1 {
     font-size: 60px;
     font-family: fantasy;
     letter-spacing: 5px;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
 #signUpAdvisor{
     width: 300px;
@@ -94,10 +95,13 @@ h1 {
     font-size: 25px;
     color: white;
     font-family: fantasy;
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
 #frontpageSignUp{
 background-color: orange;
 color: white;
+font-family: fantasy;
+letter-spacing: 1px;
 }
 #frontpageSignUp:hover{
 background-color: rgb(143, 96, 8);
