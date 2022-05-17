@@ -1,10 +1,10 @@
 <script>
 import Carousel from "svelte-carousel";
 import { onMount } from 'svelte';
-let caro = false;
+let carouselIsReady = false;
     
     let coverArray = [];
-    async function loadData(){
+    onMount(async () => {
         const response = await fetch("http://localhost:3000/store/covergames");
         const data = response.json();
         data.then(data => {
@@ -13,18 +13,17 @@ let caro = false;
             } else {
                 coverArray = data.data;
                 console.log(coverArray)
-               caro=true;
+                carouselIsReady = true;
             }
         })
-    }
+    })
     
 </script>
 
 
-{#if caro===false}
-<button on:click={loadData}>START</button>
-{:else}
-<div class="game-imagecarousel">
+
+{#if carouselIsReady}
+<div id="carouselDiv">
     <Carousel autoplay
     autoplayDuration={3000}
     >
@@ -37,11 +36,10 @@ let caro = false;
 
 <style>
 
-#coverImage{
+#carouselDiv, #coverImage{
     width: 900px;
-    height: 450px;
-    max-width: 900px;
-    max-height: 450px;
+    height: 400px;
+    margin: 50px auto;
 }
 
 
