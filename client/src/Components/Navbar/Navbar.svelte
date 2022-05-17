@@ -5,7 +5,7 @@
   import LoginPage from "../../Pages/Authentication/LoginPage.svelte";
   import PrivateRoute from "../PrivateRouteGuard/PrivateRoute.svelte";
   import ProfilePage from "../../Pages/Profile/ProfilePage.svelte";
-  import { session } from "../../stores/stores.js";
+  import { session, selectedGame } from "../../stores/stores.js";
   import { itemsInCart } from "../../stores/cartStore.js";
   import SignupPage from "../../Pages/Authentication/SignupPage.svelte";
   import ForgotPage from "../../Pages/Authentication/ForgotPage.svelte";
@@ -15,9 +15,7 @@
   import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
   import Contactpage from "../../Pages/Contactpage/Contactpage.svelte";
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
-import StorePage from "../../Pages/Store/StorePage.svelte";
-
-
+  import StorePage from "../../Pages/Store/StorePage.svelte";
 </script>
 
 <Router>
@@ -29,7 +27,6 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
     <nav>
       <Link  to="/">Home</Link>
       <Link  to="/store">Store</Link>
-      <Link  to="/product">Product - delete</Link>
       <Link  to="/about">About</Link>
       <Link  to="/contact">Contact</Link>
       <Link  to="/addproducts">AddProducts - DELETE ME</Link>
