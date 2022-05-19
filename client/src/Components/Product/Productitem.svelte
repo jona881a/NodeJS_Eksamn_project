@@ -7,7 +7,7 @@
       itemsInCart.update(items => items + 1);
       cartContents.update(contents => [...contents, wine])
     }
-
+    
     function handleOpenDetailView() {
       selectedGame.set(product);
       console.log($selectedGame);

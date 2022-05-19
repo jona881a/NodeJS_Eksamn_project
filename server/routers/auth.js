@@ -143,6 +143,9 @@ async function updateUser(req, res, next) {
 /****************************/
 
 router.post("/auth/login", checkLoginInfo, (req, res) => {
+  if (userToSend.username === "admin") {
+    req.session.admin = true;
+  }
   req.session.user = userToSend;
   res.status(200).send({ session: req.session });
 });

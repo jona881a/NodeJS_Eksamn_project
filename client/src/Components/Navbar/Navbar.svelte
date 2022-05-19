@@ -12,10 +12,10 @@
   import AddProductsPage from "../../Pages/Admin/AddProductsPage.svelte";
   //import Cart from "../Cart/Cart.svelte";
   import ChangePasswordPage from "../../Pages/Authentication/ChangePasswordPage.svelte";
-  import Frontpage from "../../Pages/FrontPage/Frontpage.svelte";
   import Contactpage from "../../Pages/Contactpage/Contactpage.svelte";
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
-import StorePage from "../../Pages/Store/StorePage.svelte";
+  import StorePage from "../../Pages/Store/StorePage.svelte";
+  import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
 
 
 </script>
@@ -34,12 +34,15 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
       <Link  to="/contact">Contact</Link>
       <Link  to="/addproducts">AddProducts - DELETE ME</Link>
       {#if $session}
+        {#if $session.admin === true}
+          <Link to="/supportchat">Supportchat</Link>
+        {/if}
         <Link class="profile" to="/profile">{$session.user.username}</Link>
       {:else}
         <Link class="profile" to="/profile">Login</Link>
       {/if}
         <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
-    </nav>
+      </nav>
   </header>
   <div>
     <Route path="/" component={FrontPage}/>
@@ -54,6 +57,8 @@ import StorePage from "../../Pages/Store/StorePage.svelte";
     <Route path="changepassword" component={ChangePasswordPage}/>
     <Route path="addproducts" component={AddProductsPage}/>
     <PrivateRoute path="profile" component={ProfilePage} let:location/>
+    <!--<PrivateRoute path="supportchat" component={SupportChatPage} let:location/> VISER SIG IKKE NÅR MAN HAR ADGANG-->
+    <Route path="supportchat" component={SupportChatPage}/>
   </div>
 </Router>
 
