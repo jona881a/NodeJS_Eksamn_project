@@ -19,8 +19,6 @@ let carouselIsReady = false;
             }
         })
     })
-
-    
     
 </script>
 

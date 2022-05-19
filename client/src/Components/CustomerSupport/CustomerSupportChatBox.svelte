@@ -3,6 +3,8 @@
 import io from "socket.io-client";
 import { onMount, onDestroy} from "svelte";
 import { session, user } from "../../stores/stores";
+import {Router, Link} from "svelte-navigator";
+
 const socket = io("http://localhost:3000");
 
 let userResponse;
@@ -59,13 +61,19 @@ function onKeyPress(e) {
     {:else}
       <div class="no-user">
         <p>Sorry, but you have to be logged in in order to use the support chat</p>
-        <button >Log in</button>
+        <button>
+          <Router>
+            <Link to="/profile">Login</Link>
+          </Router>
+        </button>
       </div>
     {/if}
   </div>
 
 <style>
-.opened-chat {
+  .opened-chat {
+    display: flex;
+    flex-direction: column;
     width: 60vh;
     height: 75vh;
     z-index: 1;
@@ -109,14 +117,16 @@ function onKeyPress(e) {
     display: flex;
   }
   .chat-messagebox {
-    height: 20%;
     width: 70%;
     margin-left: 20px;
     border-radius: 15px;
+    align-self: center;
   }
   .send-button {
     margin-left: 10px;
+    margin-right: 20px;
     border-radius: 20px;
+    align-self: center;
   }
   .no-user {
     display: flex;

@@ -20,28 +20,28 @@
 
 </script>
 
-<Router>
+<Router primary={false}>
   <header>
     <h1>
       <a href="/" class="siteTitle">Digi-KeyStore</a>
     </h1>
     
     <nav>
-      <Link  to="/">Home</Link>
-      <Link  to="/store">Store</Link>
-      <Link  to="/about">About</Link>
-      <Link  to="/contact">Contact</Link>
-      <Link  to="/addproducts">AddProducts - DELETE ME</Link>
+      <Link to="/">Home</Link>
+      <Link to="/store">Store</Link>
+      <Link to="/about">About</Link>
+      <Link to="/contact">Contact</Link>
       {#if $session}
         {#if $session.admin === true}
           <Link to="/supportchat">Supportchat</Link>
+          <Link to="/addproducts">Add Products</Link>
         {/if}
         <Link class="profile" to="/profile">{$session.user.username}</Link>
       {:else}
         <Link class="profile" to="/profile">Login</Link>
       {/if}
         <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
-      </nav>
+    </nav>
   </header>
   <div>
     <Route path="/" component={FrontPage}/>
@@ -54,10 +54,15 @@
     <Route path="signup" component={SignupPage}/>
     <Route path="forgot" component={ForgotPage}/>
     <Route path="changepassword" component={ChangePasswordPage}/>
-    <Route path="addproducts" component={AddProductsPage}/>
-    <PrivateRoute path="profile" component={ProfilePage} let:location/>
-    <!--<PrivateRoute path="supportchat" component={SupportChatPage} let:location/> VISER SIG IKKE NÅR MAN HAR ADGANG-->
-    <Route path="supportchat" component={SupportChatPage}/>
+    <PrivateRoute path="addproducts" let:location>
+      <AddProductsPage/>
+    </PrivateRoute>
+    <PrivateRoute path="profile" let:location>
+      <ProfilePage/>
+    </PrivateRoute>
+    <PrivateRoute path="supportchat" let:location>
+      <SupportChatPage/>
+    </PrivateRoute>
   </div>
 </Router>
 
@@ -65,7 +70,6 @@
   header {
     display: flex;
     background-color: #212529;
-   
   }
 
   h1 {
@@ -81,28 +85,24 @@
     color: #f8f9fa;
     margin-right: 20px;
   }
-
   nav {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 8fr 1fr 1fr;
     align-self: center;
     font-size: 18px;
     padding-right: 10px;
     width: 100%;
   }
-
   :global(.profile) {
-    justify-items: flex-end;
+    justify-self: end;
   }
 
-  /*
-  nav :global(.right) {
-   margin-right: 1px;
+  :global(.cart) {
+    justify-self: end;
+    margin-right: 10px;
   }
-  nav :global(.left) {
-   margin-left: 300px;
-  }
-  */
+  
   .cart-items {
     color: #868e96;
   }
