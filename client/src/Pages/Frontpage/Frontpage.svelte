@@ -37,7 +37,6 @@ let carouselIsReady = false;
      </Carousel>
      <div  id="frontpageCarouselTextDiv">
      <h1>"Games everywhere for everyone"</h1>
-     <h4>- Digi-KeyStore</h4>
      <div id="signUpAdvisor">
      <p>Start your free account to recieve mails about keys on discount</p>
      <button id="frontpageSignUp">
@@ -140,15 +139,14 @@ let carouselIsReady = false;
     transform: translate(-50%, -50%);
 }
 
-h1, h4 {
-    width: 1100px;
-    color: rgb(236, 109, 24);
-}
 h1 {
     font-size: 60px;
     font-family: fantasy;
     letter-spacing: 5px;
     text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+    transform: translate(10%, 0%);
+    width: 1100px;
+    color: rgb(236, 109, 24);
 }
 
 
