@@ -1,9 +1,8 @@
 <script>
 import Carousel from "svelte-carousel";
 import { onMount } from 'svelte';
-import { useNavigate} from "svelte-navigator";
 import {Router, Link, Route } from "svelte-navigator";
-const navigate = useNavigate();
+
 
 let carouselIsReady = false;    
     let coverArray = [];
@@ -57,7 +56,11 @@ let carouselIsReady = false;
              <img class="serviceImg" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="rouolette">
         </div>
         <div id="dailySpinButtonDiv">
-        <button id="dailySpinButton">Login here!</button>
+        <button id="dailySpinButton">
+            <Router>
+                <Link  to="/login">Login Here!</Link>
+             </Router>
+        </button>
     </div>
     </div>
     <div class="second">
