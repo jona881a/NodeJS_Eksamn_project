@@ -30,6 +30,7 @@ let carouselIsReady = false;
     <Carousel autoplay
     autoplayDuration={3000}
     arrows={false}
+    dots={false}
     >
     {#each coverArray as image}
     <img id="coverImage" src={image.cover_image} alt="coverImage">
@@ -49,10 +50,75 @@ let carouselIsReady = false;
     </div>
 </div>
 {/if}
+<div id="servicesContentDiv">
+    <div class="first">
+        <h3 class="serviceText">Your own personal profile!</h3>
+        <div class="imgDiv">
+             <img class="serviceImg" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="rouolette">
+        </div>
+        <div id="dailySpinButtonDiv">
+        <button id="dailySpinButton">Login here!</button>
+    </div>
+    </div>
+    <div class="second">
+        <h3 class="serviceText">Chance of winning free keys!</h3>
+        <div class="imgDiv">
+             <img class="serviceImg" src="https://cdn-icons-png.flaticon.com/512/1254/1254356.png" alt="rouolette">
+        </div>
+        <div id="dailySpinButtonDiv">
+        <button id="dailySpinButton">Daily Spin!</button>
+    </div>
+    </div>
+    <div class="third">
+        <h3 class="serviceText">24h Support!</h3>
+        <div class="imgDiv">
+             <img class="serviceImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQT4CbjtNZPSBhnzGYFPXH4W7neMa6Cfv1imrj1MAeew_2ACu5TPkTblIDYweZPmDj5YI&usqp=CAU" alt="rouolette">
+        </div><br><br>
+        <h3 class="serviceText">Free chat service</h3>
+    </div>
+</div>
+
+
+
 
 <style>
+#servicesContentDiv{
+    width: 100%;
+    height: max-content;
+    margin: 0px auto;
+    border: 1px solid none;
+    overflow: hidden; /* add this to contain floated children */
+    background-color: #212529;
+    display: flex;
+    justify-content: center;
+}
+.first, .second, .third{
+    width: 400px;
+    height: 300px;
+    float:left; /* add this */
+    border: 4px solid rgb(236, 109, 24);;
+    border-radius: 30px;
+    margin-left: 30px;
+    background-color: white;
+}
 
+.imgDiv{
+    width: max-content;
+    height: max-content;
+    transform: translate(77%, 20%);
+}
 
+.serviceImg{
+    width: 150px;
+    height: 150px;
+}
+.serviceText{
+    text-align: center;
+    font-size: 25px;
+}
+.serviceText, .serviceImg{
+    margin: auto;
+}
 
 #carouselDiv{
     width: auto;
@@ -81,6 +147,8 @@ h1 {
     letter-spacing: 5px;
     text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
+
+
 #signUpAdvisor{
     width: 300px;
     position: absolute;
@@ -97,15 +165,21 @@ h1 {
     font-family: fantasy;
     text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
-#frontpageSignUp{
+#frontpageSignUp, #dailySpinButton{
 background-color: orange;
 color: white;
 font-family: fantasy;
 letter-spacing: 1px;
 }
-#frontpageSignUp:hover{
+#frontpageSignUp:hover, #dailySpinButton:hover{
 background-color: rgb(143, 96, 8);
 color: white;
+}
+#dailySpinButtonDiv{
+    margin: 20px auto;
+    width: max-content;
+    height: max-content;
+    transform: translate(0%, 70%);
 }
 
 </style>
