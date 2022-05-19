@@ -1,6 +1,55 @@
 <script>
     import { selectedGame } from '../../stores/stores.js'
+    import { onMount } from 'svelte';
     import Carousel from 'svelte-carousel'
+    import ReviewModal from '../../Components/Modals/Modal.svelte'
+
+    let gameReviews = [];
+    const url = "http://localhost:3000/reviews"
+
+    let isOpen = false;
+    let review;
+
+    onMount( async () => {
+		const reviewsString = { game_id : $selectedGame.id };
+    
+        await fetch(url, {
+            method: "POST",
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reviewsString)})
+            .then(response => response.json())
+            .then(data => { 
+                gameReviews = data.reviews.reverse();
+        })
+        .catch(error => console.log(error));
+    });
+
+    function openModal() {
+        if(!isOpen) {
+            isOpen = true;
+        } else {
+            isOpen = false;
+        }
+    }
+
+    function closeModal(event) {
+        isOpen = event.detail.isOpen;
+    }
+
+    function updateArray(event) {
+        review = event.detail.review;
+        console.log(review)
+        if(review) {
+            gameReviews.reverse();
+            gameReviews.push(review);
+            gameReviews.reverse();
+            gameReviews = gameReviews;
+        }
+        isOpen = false;
+    }
+
 </script>
 
 <div class="container">
@@ -21,67 +70,28 @@
                     <span>Hello</span>
                 </div>
             </div>
+            <div class="game-container-reviews-topbar">
+                <button on:click="{openModal}">Write a review</button>
+                {#if isOpen}
+                    <ReviewModal on:close-modal="{closeModal}" on:saved-review="{updateArray}"/>
+                {/if}
+            </div>
             <div class="game-container-reviews">
-                <!--
-                        {forEach array.reviews as review}
-                        <div class="game-reviews">
-                            <img src="" alt="profilePic" ></img>
+                {#each gameReviews as review}
+                <div class="game-reviews">
+                    <div class="game-reviews-user">
+                        <div class="game-reviews-user-pfp">
+                            <img src="pics/thumb.png" alt="profilePic" width="5px" height="5px" />
                         </div>
-                        {/each}
-                    -->
-                    <div class="game-reviews">
-                        <div class="game-reviews-user">
-                            <div class="game-reviews-user-pfp">
-                                <img src="pics/thumb.png" alt="profilePic" width="5px" height="5px" />
-                            </div>
-                            <div class="game-reviews-user-name">
-                                <span>TrollUser1</span>
-                            </div>
-                        </div>
-                        <div class="game-reviews-body">
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </span>
+                        <div class="game-reviews-user-name">
+                            <span>{review.username}</span>
                         </div>
                     </div>
-                    <div class="game-reviews">
-                        <div class="game-reviews-user">
-                            <div class="game-reviews-user-pfp">
-                                <img src="pics/thumb.png" alt="profilePic" width="5px" height="5px" />
-                            </div>
-                            <div class="game-reviews-user-name">
-                                <span>TrollUser2</span>
-                            </div>
-                        </div>
-                        <div class="game-reviews-body">
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </span>
-                        </div>
+                    <div class="game-reviews-body">
+                        <span>{review.review_content}</span>
                     </div>
-                    <div class="game-reviews">
-                        <div class="game-reviews-user">
-                            <div class="game-reviews-user-pfp">
-                                <img src="pics/thumb.png" alt="profilePic" width="5px" height="5px" />
-                            </div>
-                            <div class="game-reviews-user-name">
-                                <span>TrollUser1</span>
-                            </div>
-                        </div>
-                        
-                        <div class="game-reviews-body">
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </span>
-                        </div>
-                    </div>
-                    <div class="game-reviews">
-                        <div class="game-reviews-user">
-                            <div class="game-reviews-user-pfp">
-                                <img src="pics/thumb.png" alt="profilePic" width="5px" height="5px" />
-                            </div>
-                            <div class="game-reviews-user-name">
-                                <span>TrollUser1</span>
-                            </div>
-                        </div>
-                        <div class="game-reviews-body">
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </span>
-                        </div>
-                    </div>
+                </div>
+                {/each}
             </div>
         </div>
     </div>
@@ -112,7 +122,6 @@
     .game-container-description {
         width: 598px;
         height: 400px;
-
         border: 1px;
         border-width: 1px;
         border-style: solid;
@@ -126,30 +135,44 @@
     }
     .game-container-reviews {
         width: 298px;
+        height: 360px;
         border-width: 1px;
         border-style: solid;
         border-color: black;
         float: right;
-        height: 400px;
-        max-height: 400px;
+        max-height: 360px;
         overflow-y: scroll;
     }
+    .game-container-reviews-topbar {
+        width: 298px;
+        height: 40px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        float: right;
+        border-bottom: 0px;
+    }
     .game-reviews {
-        padding-left: 7px;
-        padding-right: 7px;
         width: auto;
         overflow-x: hidden;
         overflow-y: auto;
         border-width: 1px;
         border-color: black;
         border-style: solid;
-        border-top: 0px;
         border-left: 0px;
+        margin-top: 2px;
+        margin-bottom: 5px;
     }
     .game-reviews-user {
         height: 40px;
         display: flex;
-        margin-top: 7px;
+        margin: 7px;
+        border-width: 1px;
+        border-color: black;
+        border-style: solid;
+        border-top: 0px;
+        border-left: 0px;
+        border-right: 0px;
     }
     .game-reviews-user span{
         display: inline-block;
@@ -167,7 +190,7 @@
         align-items: center;
     }
     .game-reviews-body {
-        margin-bottom: 10px;
+        margin: 7px;
     }
 
 </style>
