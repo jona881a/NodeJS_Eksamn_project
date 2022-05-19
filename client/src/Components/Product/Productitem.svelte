@@ -1,16 +1,20 @@
 <script>
   import { selectedGame } from "../../stores/stores.js";
   import { cartContents, itemsInCart } from "../../stores/cartStore.js";
+  import { useNavigate, useLocation } from "svelte-navigator";
   export let product;
+
+  const navigate = useNavigate();
+  const uselocation = useLocation();
 
     function handleBuyGame() {
       itemsInCart.update(items => items + 1);
-      cartContents.update(contents => [...contents, wine])
+      cartContents.update(contents => [...contents, product])
     }
     
     function handleOpenDetailView() {
       selectedGame.set(product);
-      console.log($selectedGame);
+      navigate("/product", { replace: true });
     }
 
 </script>
