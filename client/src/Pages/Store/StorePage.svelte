@@ -58,7 +58,7 @@
     border-radius: 20px;
     margin: 0;
   }
-
+  
   @media screen and (max-width: 1850px) {
     .store-content {
       display: grid;
@@ -66,14 +66,19 @@
     }
   }
 
-  @media screen and (max-width: 1150px) {
+  @media screen and (max-width: 1388px) {
     .store-content {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      max-width: 90%;
     }
+  }
 
-    .container {
-      margin-left: 100px;
+  @media screen and (max-width: 940px) {
+    .store-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 90%;
     }
   }
 </style>

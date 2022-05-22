@@ -50,8 +50,6 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("send-message", ({ message, username }) => {
-    //console.log(message, username);
-    //console.log(socket.rooms);
     io.emit("message-recieved", {
       message,
       username,

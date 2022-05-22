@@ -5,7 +5,7 @@
   import LoginPage from "../../Pages/Authentication/LoginPage.svelte";
   import PrivateRoute from "../PrivateRouteGuard/PrivateRoute.svelte";
   import ProfilePage from "../../Pages/Profile/ProfilePage.svelte";
-  import { session, selectedGame } from "../../stores/stores.js";
+  import { session } from "../../stores/stores.js";
   import { itemsInCart } from "../../stores/cartStore.js";
   import SignupPage from "../../Pages/Authentication/SignupPage.svelte";
   import ForgotPage from "../../Pages/Authentication/ForgotPage.svelte";
@@ -16,8 +16,10 @@
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
   import StorePage from "../../Pages/Store/StorePage.svelte";
   import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
+  import { Dropdown } from "carbon-components-svelte";
 
   let adminSessionClass = "";
+  let innerWidth = window.innerWidth;
 
   $: if($session) {
     if($session.admin === true) {
@@ -25,7 +27,12 @@
     }
   }
 
+  $: console.log(innerWidth);
 </script>
+
+<svelte:window 
+	bind:innerWidth
+  />
 
 <Router primary={false}>
   
@@ -33,25 +40,28 @@
     <h1>
       <a href="/" class="siteTitle">Digi-KeyStore</a>
     </h1>
-    
-    <nav class={adminSessionClass}>
-      <Link to="/">Home</Link>
-      <Link to="/store">Store</Link>
-      <Link to="/about">About</Link>
-      <Link to="/contact">Contact</Link>
-      {#if $session}
-        {#if $session.admin === true}
-            <Link class="supportchat" to="/supportchat">Supportchat</Link>
-            <Link class="addproducts" to="/addproducts">Add Products</Link>
+      <nav class={adminSessionClass}>
+        {#if innerWidth !== "768"}
+          <Link to="/">Home</Link>
+          <Link to="/store">Store</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
+          {#if $session}
+            {#if $session.admin === true}
+              <Link class="supportchat" to="/supportchat">Supportchat</Link>
+              <Link class="addproducts" to="/addproducts">Add Products</Link>
+            {/if}
+            {#if $session.admin !== true}
+              <Link class="profile" to="/profile">{$session.user.username}</Link>
+            {/if}
+          {:else}
+            <Link class="profile" to="/profile">Login</Link>
+          {/if}
+            <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
+        {:else}
+          <Dropdown class="dropdown"/>
         {/if}
-        {#if $session.admin !== true}
-         <Link class="profile" to="/profile">{$session.user.username}</Link>
-        {/if}
-      {:else}
-        <Link class="profile" to="/profile">Login</Link>
-      {/if}
-        <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
-    </nav>
+      </nav>
   </header>
   <div>
     <Route path="/" component={FrontPage}/>
@@ -128,6 +138,12 @@
     :global(.addproducts) {
       text-align: center;
       margin-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    :global(.dropdown) {
+      float: right;
     }
   }
 
