@@ -1,9 +1,20 @@
 import { writable, derived } from "svelte/store";
 
-export const itemsInCart = writable(0);
+const localStoreContents =
+  JSON.parse(localStorage.getItem("localstoreContents")) || [];
 
-export const cartContents = writable([]);
+export const cartContents = writable(localStoreContents);
 
-export const totalPrice = derived(cartContents, ($cartContents) =>
-  $cartContents.forEach((item) => (item.price += totalPrice))
-);
+export const totalPrice = writable(0);
+
+localStoreContents.forEach((item) => {
+  totalPrice.update((price) => (price += item.price));
+});
+
+export const itemsInCart = writable(localStoreContents.length);
+
+cartContents.subscribe((value) => {
+  if (value !== null) {
+    localStorage.setItem("localstoreContents", JSON.stringify(value));
+  }
+});

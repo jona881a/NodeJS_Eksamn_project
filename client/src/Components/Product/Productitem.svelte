@@ -1,14 +1,13 @@
 <script>
   import { selectedGame } from "../../stores/stores.js";
-  import { cartContents, itemsInCart } from "../../stores/cartStore.js";
-  import { useNavigate, useLocation } from "svelte-navigator";
+  import { cartContents, itemsInCart, totalPrice } from "../../stores/cartStore.js";
+  import { useNavigate } from "svelte-navigator";
   import { onMount } from "svelte";
   export let product;
   export let disabled;
   let disabledclass = "";
 
   const navigate = useNavigate();
-  const uselocation = useLocation();
 
   onMount(() => {
     if(disabled) {
@@ -18,7 +17,12 @@
 
   function handleBuyGame() {
     itemsInCart.update(items => items + 1);
-    cartContents.update(contents => [...contents, product]);
+    totalPrice.update(price => price += product.price);
+    if($cartContents !== null) {
+      cartContents.update(contents => [...contents, product]);
+    } else {
+      cartContents.update(contents => [contents, product]);
+    }
   }
     
   function handleOpenDetailView() {

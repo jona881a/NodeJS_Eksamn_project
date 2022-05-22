@@ -28,6 +28,7 @@
 </script>
 
 <Router primary={false}>
+  
   <header>
     <h1>
       <a href="/" class="siteTitle">Digi-KeyStore</a>
@@ -40,8 +41,8 @@
       <Link to="/contact">Contact</Link>
       {#if $session}
         {#if $session.admin === true}
-            <Link to="/supportchat">Supportchat</Link>
-            <Link to="/addproducts">Add Products</Link>
+            <Link class="supportchat" to="/supportchat">Supportchat</Link>
+            <Link class="addproducts" to="/addproducts">Add Products</Link>
         {/if}
         {#if $session.admin !== true}
          <Link class="profile" to="/profile">{$session.user.username}</Link>
@@ -107,6 +108,29 @@
     padding-right: 10px;
     width: 100%;
   }
+  @media screen and (max-width: 1430px) {
+    .admin-session,
+    nav {
+      grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr 1fr;
+    }
+  }
+  @media screen and (max-width: 1170px) {
+    .admin-session,
+    nav {
+      grid-template-columns: 0.5fr 0.5fr 0.5fr 1fr 2fr 1fr 0.5fr;
+      justify-content: center;
+      gap: 20px;
+    }
+    :global(.supportchat),
+    :global(.addproducts) {
+      justify-self: end;
+    }
+    :global(.addproducts) {
+      text-align: center;
+      margin-right: 10px;
+    }
+  }
+
   :global(.profile) {
     justify-self: end;
   }

@@ -1,5 +1,5 @@
 <script>
-  import {itemsInCart, cartContents} from "../../stores/cartStore.js";
+  import {itemsInCart, cartContents, totalPrice} from "../../stores/cartStore.js";
   import { session } from "../../stores/stores.js";
   import Productitem from "../../Components/Product/Productitem.svelte";
 
@@ -8,7 +8,9 @@
   }
 
   function handleClearCart() {
-
+    cartContents.set([]);
+    itemsInCart.set(0);
+    totalPrice.set(0);
   }
 
 </script>
@@ -24,13 +26,15 @@
     {:else}
       <div class="cart-content">
         {#each $cartContents as cartItem}
-          <div class="cart-item">
-            <Productitem product={cartItem} disabled={true}/>
-          </div>
+          {#if cartItem !== null}
+            <div class="cart-item">
+              <Productitem product={cartItem} disabled={true}/>
+            </div>
+          {/if}
         {/each}
         <div class="cart-footer">
-          <h2 class="total">Total: </h2>
-          <button class="checkout-button" on:click={handleCheckout}> Checkout</button>
+          <h2 class="total">Total: {$totalPrice.toFixed(2)} </h2>
+          <button class="checkout-button" on:click={handleCheckout}> Checkout <i class="fa-solid fa-basket-shopping"></i></button>
           <button class="clear-button" on:click={handleClearCart}>Clear <i class="fa-solid fa-x"></i></button>
         </div>
       </div>
@@ -79,13 +83,12 @@
     cursor: pointer;
     padding: 10px 15px;
     border-radius: 20px;
-    width: 100px;
+    width: fit-content;
   }
  
   .checkout-button {
     background-color: #212529;
     color: #f8f9fa;
-    width: 100px;
   }
 
   .checkout-button:hover {
@@ -96,6 +99,10 @@
   .clear-button {
     color: #fff;
     background-color: #f03e3e;
+  }
+
+  .clear-button:hover {
+    background-color: #c92a2a;
   }
 
 </style>
