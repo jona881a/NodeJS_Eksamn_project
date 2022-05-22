@@ -22,26 +22,31 @@
   <h1 class="games-in-store">Showing {games.length} games</h1>
   <input class="searchbar" bind:value={searchString} placeholder="search..." />
 </div>
-<div class="wrapper">
+<div class="store-content">
   {#each games as game}
-    <Productitem product={game} />
+    <Productitem product={game} disabled={false}/>
   {/each}
 </div>
 </div>
 
 <style>
   .container {
-    max-width: 80%;
+    max-width: 90%;
     margin: 0 auto;
   }
 
-  .wrapper {
+  .store-content {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
   }
 
   .store-header {
-    /*display: flex;*/
+    display: flex;
+    gap: 20px;  
+    align-items: center;
   }
 
   .games-in-store {
@@ -51,17 +56,18 @@
 
   .searchbar {
     border-radius: 20px;
+    margin: 0;
   }
 
   @media screen and (max-width: 1850px) {
-    .wrapper {
+    .store-content {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
   @media screen and (max-width: 1150px) {
-    .wrapper {
+    .store-content {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }

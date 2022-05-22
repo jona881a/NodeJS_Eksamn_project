@@ -10,13 +10,20 @@
   import SignupPage from "../../Pages/Authentication/SignupPage.svelte";
   import ForgotPage from "../../Pages/Authentication/ForgotPage.svelte";
   import AddProductsPage from "../../Pages/Admin/AddProductsPage.svelte";
-  //import Cart from "../Cart/Cart.svelte";
+  import Cart from "../../Pages/Cart/CartPage.svelte";
   import ChangePasswordPage from "../../Pages/Authentication/ChangePasswordPage.svelte";
   import Contactpage from "../../Pages/Contactpage/Contactpage.svelte";
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
   import StorePage from "../../Pages/Store/StorePage.svelte";
   import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
 
+  let adminSessionClass = "";
+
+  $: if($session) {
+    if($session.admin === true) {
+      adminSessionClass = "admin-session";
+    }
+  }
 
 </script>
 
@@ -26,17 +33,19 @@
       <a href="/" class="siteTitle">Digi-KeyStore</a>
     </h1>
     
-    <nav>
+    <nav class={adminSessionClass}>
       <Link to="/">Home</Link>
       <Link to="/store">Store</Link>
       <Link to="/about">About</Link>
       <Link to="/contact">Contact</Link>
       {#if $session}
         {#if $session.admin === true}
-          <Link to="/supportchat">Supportchat</Link>
-          <Link to="/addproducts">Add Products</Link>
+            <Link to="/supportchat">Supportchat</Link>
+            <Link to="/addproducts">Add Products</Link>
         {/if}
-        <Link class="profile" to="/profile">{$session.user.username}</Link>
+        {#if $session.admin !== true}
+         <Link class="profile" to="/profile">{$session.user.username}</Link>
+        {/if}
       {:else}
         <Link class="profile" to="/profile">Login</Link>
       {/if}
@@ -49,7 +58,7 @@
     <Route path="about" component={AboutPage}/>
     <Route path="product" component={ProductPage}/>
     <Route path="contact" component={Contactpage}/>
-    <!--<Route path="cart" component={Cart}><Cart/></Route>-->
+    <Route path="cart" component={Cart}><Cart/></Route>
     <Route path="login" component={LoginPage}/>
     <Route path="signup" component={SignupPage}/>
     <Route path="forgot" component={ForgotPage}/>
@@ -67,6 +76,10 @@
 </Router>
 
 <style>
+  .admin-session {
+    grid-template-columns: 1fr 1fr 1fr 4fr 1fr 1fr 1fr;
+  }
+
   header {
     display: flex;
     background-color: #212529;

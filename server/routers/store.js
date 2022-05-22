@@ -22,18 +22,14 @@ router.get("/store/getallgames", (req, res) => {
   );
 });
 
-
 router.get("/store/covergames", (req, res) => {
-  db.query(
-    `SELECT cover_image FROM gameimages;`,
-    (err, data) => {
-      if (err) {
-        res.send({ errorMessage: err });
-      } else {
-       res.send({data})
-      }
+  db.query(`SELECT cover_image FROM gameimages;`, (err, data) => {
+    if (err) {
+      res.send({ errorMessage: err });
+    } else {
+      res.send({ data });
     }
-  );
+  });
 });
 
 export default router;
