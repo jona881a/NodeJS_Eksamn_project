@@ -17,7 +17,6 @@ onMount(() => {
 if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
   console.info( "This page is reloaded" );
 	console.info($cartContents);
-	alert($cartContents);
 	localStorage.setItem("cartContent", $cartContents);
 
 }
