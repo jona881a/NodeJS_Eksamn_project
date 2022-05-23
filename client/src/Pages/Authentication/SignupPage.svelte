@@ -64,17 +64,6 @@
   const json = await response.json();
   redirectTimer();
   }
-
-  function imgSize(image) {
-    
-    //let mb = kb / 1024; convert kb to mb
-    let passed = false;
-
-    if (kb < maxKb) { // if the file size is smaller than maxKb
-      passed = true;
-    }
-    return passed;
-  }
 	
 	const onFileSelected =(e)=>{
     let image = e.target.files[0];
@@ -84,11 +73,28 @@
 
     reader.readAsDataURL(image);
     reader.onload = e => {
+      if (kb < maxKb || kb > maxKb) {
+        avatar = e.target.result;
+      } else {
+        toasts.warning('Picture size too large', 'Please select smaller image');
+      }
+    };
+  }
+
+  const onFileReselect =(e)=>{
+    let image = e.target.files[0];
+    let kb = image.size / 1024; // convert the file size into byte to kb
+    console.log(fileinput.click())
+
+    let reader = new FileReader();
+
+    reader.readAsDataURL(image);
+    reader.onload = e => {
     if (kb < maxKb) {
-      avatar = e.target.result
+      fileinput = e.target.result;
+      avatar = e.target.result;
     } else {
-      fileinput = null;
-      toasts.warning('Picture size too large', 'Please select smaller image')
+      toasts.warning('Picture size too large', 'Please select smaller image');
     }
     };
   }

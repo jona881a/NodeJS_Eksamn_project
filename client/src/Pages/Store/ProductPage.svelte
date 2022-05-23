@@ -27,16 +27,15 @@
         })
         .catch(error => console.error(error));
     
-        const gameReivewResponse = await fetch(url,{
+        const gameReviewResponse = await fetch(url,{
             method: "POST",
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify(reviewsString)}).json();
-        
-        gameReivewResponse
-        .then(response => response.json())
-        .then(data => { 
+            body: JSON.stringify(reviewsString)
+        });
+        const dataJson = gameReviewResponse.json();
+        dataJson.then(data => { 
             gameReviews = data.reviews.reverse();
         })
         .catch(error => console.error(error));
