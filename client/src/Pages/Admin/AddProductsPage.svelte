@@ -86,7 +86,7 @@
 	}
 
 	.preview-image-div {
-		width: 50%;
+		width: 40px;
 		justify-self: center;
 	}
 
@@ -103,8 +103,8 @@
 	}
  
 	.upload{
-		height:50px;
-		width:50px;
+		height:40px;
+		width:40px;
 		cursor:pointer;
 		margin-left: 25px;
 	}
