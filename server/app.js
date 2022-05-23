@@ -6,6 +6,7 @@ import authRouter from "./routers/auth.js";
 import mailRouter from "./routers/nodemailer.js";
 import adminRouter from "./routers/admin.js";
 import storeRouter from "./routers/store.js";
+import cartRouter from "./routers/cart.js";
 
 import http from "http";
 
@@ -36,6 +37,7 @@ app.use(authRouter);
 app.use(mailRouter);
 app.use(adminRouter);
 app.use(storeRouter);
+app.use(cartRouter);
 
 io.on("connection", (socket) => {
   console.log(
