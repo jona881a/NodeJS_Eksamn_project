@@ -3,10 +3,13 @@ import db from "./createConnection.js";
 let deleteMode = false;
 
 if (deleteMode) {
+  db.query(`DROP TABLE IF EXISTS reviews;`);
   db.query(`DROP TABLE IF EXISTS users;`);
   db.query(`DROP TABLE IF EXISTS games;`);
   db.query(`DROP TABLE IF EXISTS gameimages;`);
+  
 } else {
+
   //TABLE: users
   db.query(
     `CREATE TABLE IF NOT EXISTS users (
@@ -14,7 +17,9 @@ if (deleteMode) {
     fullname VARCHAR(50),
     email VARCHAR(50),
     username VARCHAR(20),
-    password VARCHAR(255)
+    password VARCHAR(255),
+    profile_pic MEDIUMTEXT,
+    review_id INT
   );`
   );
 
@@ -38,6 +43,18 @@ if (deleteMode) {
     price DOUBLE,
     images_id INT,
     FOREIGN KEY (images_id) REFERENCES gameimages(id)
+  );`
+  );
+
+  //TABLE: reviews
+  db.query(
+    `CREATE TABLE IF NOT EXISTS reviews (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    game_id INT,
+    user_id INT,
+    review_content VARCHAR(500),
+    FOREIGN KEY (game_id) REFERENCES games(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
   );`
   );
 }
