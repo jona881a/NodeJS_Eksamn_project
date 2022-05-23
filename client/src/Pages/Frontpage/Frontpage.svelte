@@ -19,10 +19,9 @@ let carouselIsReady = false;
             }
         })
     })
-
-    
-    
 </script>
+
+
 
 {#if carouselIsReady}
 <div id="carouselDiv">
