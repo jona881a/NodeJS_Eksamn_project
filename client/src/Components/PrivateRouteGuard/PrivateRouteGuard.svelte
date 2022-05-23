@@ -10,10 +10,7 @@
       state: { from: $location.pathname },
       replace: true,
     });
-  }else{
-    console.log("session success")
   }
-
  
 </script>
 

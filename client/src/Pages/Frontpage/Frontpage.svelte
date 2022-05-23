@@ -3,22 +3,21 @@ import Carousel from "svelte-carousel";
 import { onMount } from 'svelte';
 import {Router, Link, Route } from "svelte-navigator";
 
+let dataLoaded = false;    
+let coverArray = [];
 
-let carouselIsReady = false;    
-    let coverArray = [];
-    onMount(async () => {
-        const response = await fetch("http://localhost:3000/store/covergames");
-        const data = response.json();
-        data.then(data => {
-            if(data.errorMessage) {
-                console.error(data.errorMessage);
-            } else {
-                coverArray = data.data;
-                console.log(coverArray)
-                carouselIsReady = true;
-            }
-        })
+onMount(async () => {
+    const response = await fetch("http://localhost:3000/store/covergames");
+    const data = response.json();
+    data.then(data => {
+        if(data.errorMessage) {
+            console.error(data.errorMessage);
+        } else {
+            coverArray = data.data;
+            dataLoaded = true;
+        }
     })
+<<<<<<< HEAD
 </script>
 
 
@@ -44,6 +43,34 @@ let carouselIsReady = false;
          </Router>
      </button>
     </div>
+=======
+})
+    
+</script>
+
+{#if dataLoaded}
+    <div id="carouselDiv">
+        <Carousel 
+        autoplay
+        autoplayDuration={3000}
+        arrows={false}
+        dots={false}
+        >
+        {#each coverArray as image}
+            <img id="coverImage" src={image.cover_image} alt="coverImage">
+        {/each}
+        </Carousel>
+    <div  id="frontpageCarouselTextDiv">
+        <h1>"Games everywhere for everyone"</h1>
+        <div id="signUpAdvisor">
+            <p>Start your free account to recieve mails about keys on discount</p>
+            <button id="frontpageSignUp">
+                <Router>
+                    <Link  to="/signup">Sign up now!</Link>
+                </Router>
+            </button>
+        </div>
+>>>>>>> 962b0bff414a3a84231b1458620539ef435a656d
     </div>
 </div>
 {/if}

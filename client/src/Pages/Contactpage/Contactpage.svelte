@@ -6,7 +6,7 @@
 
     async function handleSubmit(e){
     e.preventDefault();
-  
+        
     const response = await fetch("http://localhost:3000/sendmail", {
         method: 'POST',
         body: JSON.stringify({
@@ -41,7 +41,6 @@
 </div>
 
 <style>
-
     .headlineDiv{
         width: 400px;
         margin: 20px auto;
@@ -58,7 +57,6 @@
         border: 1px solid black;
     }
     #mailFormDiv{
-        background-color: lightgray;
         width: 100%;
         margin: 20px auto;
         padding: 10px;

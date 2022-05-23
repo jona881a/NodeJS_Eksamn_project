@@ -1,5 +1,5 @@
 <script>
-import CustomerSupportChatBox from "./CustomerSupportChatBox.svelte";
+  import CustomerSupportChatBox from "./CustomerSupportChatBox.svelte";
 
   let chatOpened = false;
 
@@ -9,6 +9,7 @@ import CustomerSupportChatBox from "./CustomerSupportChatBox.svelte";
     } else {
       chatOpened = true;
     }
+    
   }
 
 </script>

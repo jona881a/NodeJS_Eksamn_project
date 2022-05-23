@@ -5,4 +5,3 @@ export const user = writable(null);
 export const session = writable(null);
 
 export const selectedGame = writable(null);
-

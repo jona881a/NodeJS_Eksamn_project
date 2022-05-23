@@ -1,25 +1,38 @@
 <script>
   import { selectedGame } from "../../stores/stores.js";
-  import { cartContents, itemsInCart } from "../../stores/cartStore.js";
-  import { useNavigate, useLocation } from "svelte-navigator";
+  import { cartContents, itemsInCart, totalPrice } from "../../stores/cartStore.js";
+  import { useNavigate } from "svelte-navigator";
+  import { onMount } from "svelte";
   export let product;
+  export let disabled;
+  let disabledclass = "";
 
   const navigate = useNavigate();
-  const uselocation = useLocation();
 
-    function handleBuyGame() {
-      itemsInCart.update(items => items + 1);
-      cartContents.update(contents => [...contents, product])
+  onMount(() => {
+    if(disabled) {
+      disabledclass = "disabled";
     }
+  }); 
 
-    function handleOpenDetailView() {
+  function handleBuyGame() {
+    itemsInCart.update(items => items + 1);
+    totalPrice.update(price => price += product.price);
+    if($cartContents !== null) {
+      cartContents.update(contents => [...contents, product]);
+    } else {
+      cartContents.update(contents => [contents, product]);
+    }
+  }
+    
+  function handleOpenDetailView() {
       selectedGame.set(product);
       navigate("/product", { replace: true });
-    }
+  }
 
 </script>
 
-<div class="card" on:click={handleOpenDetailView}>
+<div class=" card" on:click={handleOpenDetailView}>
   <div class="card-img">
     <!-- svelte-ignore a11y-missing-attribute -->
     <img src={product.cover_image} width="200" height="200"/>
@@ -33,20 +46,34 @@
     </div>
     <div class="card-footer">
       <span class="game-price">DKK {product.price}</span>
-      <button class="card-purchase-btn" on:click={handleBuyGame}>
-        Buy 
-        <i class="fa-solid fa-basket-shopping"></i>
-      </button>
+      {#if !disabled}
+        <button class="card-purchase-btn" on:click|stopPropagation={handleBuyGame}>
+          Buy 
+          <i class="fa-solid fa-basket-shopping"></i>
+        </button>
+      {/if}
     </div>
   </div>
 </div>
 
 <style>
+
   .card {
     display: flex;
     margin: 20px;
-    width: 300px;
+    width: fit-content;
+    max-width: 500px;
     cursor: pointer;
+  }
+
+  .card:hover {
+    background-color: #e9ecef;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  img {
+    border-radius: 20px;
   }
 
   .card-img {
@@ -77,10 +104,17 @@
   }
 
   .card-purchase-btn {
+    cursor: pointer;
     padding: 10px 15px;
+    border-radius: 20px;
     background-color: #212529;
     color: #f8f9fa;
     width: 100px;
+  }
+
+  .card-purchase-btn:hover {
+    background-color: #ffff;
+    color: #212529;
   }
 
 </style>
