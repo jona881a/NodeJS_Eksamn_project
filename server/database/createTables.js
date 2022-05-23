@@ -6,6 +6,7 @@ if (deleteMode) {
   db.query(`DROP TABLE IF EXISTS users;`);
   db.query(`DROP TABLE IF EXISTS games;`);
   db.query(`DROP TABLE IF EXISTS gameimages;`);
+  db.query(`DROP TABLE IF EXISTS carts`);
 } else {
   //TABLE: users
   db.query(
@@ -14,7 +15,7 @@ if (deleteMode) {
     fullname VARCHAR(50),
     email VARCHAR(50),
     username VARCHAR(20),
-    password VARCHAR(255)
+    password VARCHAR(255),
   );`
   );
 
@@ -39,6 +40,17 @@ if (deleteMode) {
     images_id INT,
     FOREIGN KEY (images_id) REFERENCES gameimages(id)
   );`
+  );
+
+  //TABLE: carts
+  db.query(
+    `CREATE TABLE IF NOT EXISTS carts (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      user_id INT,
+      total_price DOUBLE,
+      order_items JSON,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    );`
   );
 }
 db.end();
