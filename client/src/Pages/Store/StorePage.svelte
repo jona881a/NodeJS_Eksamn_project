@@ -13,7 +13,7 @@
       } else {
         games = data.data;
       }
-    })
+    });
   });
 </script>
 

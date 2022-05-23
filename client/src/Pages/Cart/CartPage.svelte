@@ -2,9 +2,22 @@
   import {itemsInCart, cartContents, totalPrice} from "../../stores/cartStore.js";
   import { session } from "../../stores/stores.js";
   import Productitem from "../../Components/Product/Productitem.svelte";
-
-  function handleCheckout() {
-    
+  import { toasts } from "svelte-toasts"; 
+  
+  async function handleCheckout() {
+    if($session) {
+      console.log($session.user);
+      const response = await fetch(`http://localhost:3000/cart/checkout/${$session.user.id}`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: {orderItems: $cartContents, totalPrice: $totalPrice}
+      });
+      const data = response.json(); 
+    } else {
+      toasts.error("You are not logged in","to purchase your games, please log in");
+    }
   }
 
   function handleClearCart() {
