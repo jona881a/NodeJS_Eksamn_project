@@ -32,11 +32,17 @@
       })
       .catch(error => console.log(error));
   }
+
+  function onKeyPress(e) {
+  if(e.charCode === 13) {
+    handleSubmit();
+  }
+}
   
   </script>
 
 
-  <div id="loginDiv">
+  <div id="loginDiv" on:keypress={onKeyPress}>
     <h3 id="loginPageHeadline">Login</h3>
     <div class={displayErrorBox}>{errorMessage}</div>
     <input class="login" bind:value={username} name="username" type="text" placeholder="Username"><br/>

@@ -5,35 +5,40 @@ const router = Router();
 
 router.get("/store/getallgames", (req, res) => {
   db.query(
-    `SELECT * FROM games JOIN gameimages ON (images_id = gameimages.id);`,
+    `SELECT gameimages.cover_image, games.* FROM games JOIN gameimages ON (images_id = gameimages.id);`,
     (err, data) => {
       if (err) {
         res.send({ errorMessage: err });
       } else {
-        let gameArray = [];
-
-        data.forEach((element) => {
-          element.carousel_images = JSON.parse(element.carousel_images);
-          gameArray.push(element);
-        });
-        res.send({ data: gameArray });
+        res.send({ data });
       }
     }
   );
 });
 
-
-router.get("/store/covergames", (req, res) => {
+router.get("/store/getallgames/:id", (req, res) => {
   db.query(
-    `SELECT cover_image FROM gameimages;`,
+    `SELECT * FROM games JOIN gameimages ON (images_id = gameimages.id) WHERE games.id = ?;`,
+    Number(req.params.id),
     (err, data) => {
       if (err) {
         res.send({ errorMessage: err });
       } else {
-       res.send({data})
+        data[0].carousel_images = JSON.parse(data[0].carousel_images);
+        res.send({ data: data[0] });
       }
     }
   );
+});
+
+router.get("/store/covergames", (req, res) => {
+  db.query(`SELECT cover_image FROM gameimages;`, (err, data) => {
+    if (err) {
+      res.send({ errorMessage: err });
+    } else {
+      res.send({ data });
+    }
+  });
 });
 
 export default router;
