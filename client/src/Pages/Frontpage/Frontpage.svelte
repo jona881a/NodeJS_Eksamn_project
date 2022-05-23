@@ -21,8 +21,6 @@ let carouselIsReady = false;
     })
 </script>
 
-
-
 {#if carouselIsReady}
 <div id="carouselDiv">
     <Carousel autoplay
@@ -53,8 +51,8 @@ let carouselIsReady = false;
         <div class="imgDiv">
              <img class="serviceImg" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="rouolette">
         </div>
-        <div id="dailySpinButtonDiv">
-        <button id="dailySpinButton">
+        <div id="loginButtonDiv">
+        <button id="loginButton">
             <Router>
                 <Link  to="/login">Login Here!</Link>
              </Router>
@@ -67,7 +65,11 @@ let carouselIsReady = false;
              <img class="serviceImg" src="https://cdn-icons-png.flaticon.com/512/1254/1254356.png" alt="rouolette">
         </div>
         <div id="dailySpinButtonDiv">
-        <button id="dailySpinButton">Daily Spin!</button>
+        <button id="dailySpinButton">
+            <Router>
+                <Link  to="/roulette">Daily Spin!</Link>
+             </Router>
+        </button>
     </div>
     </div>
     <div class="third">
@@ -165,17 +167,17 @@ h1 {
     font-family: fantasy;
     text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 }
-#frontpageSignUp, #dailySpinButton{
+#frontpageSignUp, #dailySpinButton, #loginButton{
 background-color: orange;
 color: white;
 font-family: fantasy;
 letter-spacing: 1px;
 }
-#frontpageSignUp:hover, #dailySpinButton:hover{
+#frontpageSignUp:hover, #dailySpinButton:hover, #loginButton:hover{
 background-color: rgb(143, 96, 8);
 color: white;
 }
-#dailySpinButtonDiv{
+#dailySpinButtonDiv, #loginButtonDiv{
     margin: 20px auto;
     width: max-content;
     height: max-content;

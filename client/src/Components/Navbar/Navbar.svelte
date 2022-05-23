@@ -17,6 +17,7 @@
   import StorePage from "../../Pages/Store/StorePage.svelte";
   import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
   import { Dropdown } from "carbon-components-svelte";
+  import Roulette from "../../Pages/Roulette/Roulette.svelte";
 
   let adminSessionClass = "";
   let innerWidth = window.innerWidth;
@@ -82,6 +83,9 @@
     </PrivateRoute>
     <PrivateRoute path="supportchat" let:location>
       <SupportChatPage/>
+    </PrivateRoute>
+    <PrivateRoute path="roulette" let:location>
+      <Roulette/>
     </PrivateRoute>
   </div>
 </Router>
