@@ -1,7 +1,7 @@
 import { Router } from "express";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import htmlMailTemplate from "../html/varificationmailTemplate.js";
+import htmlMailTemplate from "../html/verificationmailTemplate.js";
 dotenv.config();
 const router = Router();
 
@@ -37,7 +37,7 @@ router.post("/sendmail", (req, res) => {
   );
 });
 
-router.post("/sendmailvarification", (req, res) => {
+router.post("/sendmailverification", (req, res) => {
   const to = req.body.email;
   console.log(to);
 

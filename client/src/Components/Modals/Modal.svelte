@@ -21,6 +21,7 @@
         const reviewContents = {
             username: $session.user.username,
             game_id: $selectedGame.id,
+            profile_pic: $session.user.profile_pic,
             user_id: $session.user.id,
             review_content: reviewContent
         };

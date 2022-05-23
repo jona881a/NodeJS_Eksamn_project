@@ -10,6 +10,15 @@ let userToSend;
 /***********Functions**********/
 /******************************/
 
+/*
+async function passwordCreator(password) {
+  let newpassword = await bcrypt.hash(password, saltRounds);
+  console.log(newpassword)
+}
+
+passwordCreator("test")
+*/
+
 async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
@@ -26,9 +35,11 @@ async function checkLoginInfo(req, res, next) {
         );
         if (correctPassword) {
           userToSend = {
+            id: foundUser.id,
             fullname: foundUser.fullname,
             email: foundUser.email,
             username: foundUser.username,
+            profile_pic: foundUser.profile_pic
           };
           next();
         } else {
@@ -52,12 +63,13 @@ async function createUser(req, res, next) {
     [user.username],
     async (err, data) => {
       if (!data[0]) {
+
         const hashedPassword = await bcrypt.hash(user.password, saltRounds);
         const newUser = { ...user, password: hashedPassword };
 
         db.query(
-          `INSERT INTO users(fullname,email,username,password) VALUES(?, ?, ?, ?)`,
-          [newUser.fullname, newUser.email, newUser.username, newUser.password]
+          `INSERT INTO users(fullname,email,username,profile_pic,password) VALUES(?, ?, ?, ?, ?)`,
+          [newUser.fullname, newUser.email, newUser.username, newUser.profile_pic, newUser.password]
         );
         next();
       } else {

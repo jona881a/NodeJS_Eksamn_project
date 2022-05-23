@@ -74,7 +74,7 @@
 						<div class="chan" on:click={()=>{fileinput.click();}}>Choose Image(s)</div>
 						<input style="display:none" type="file" accept=".jpg, .jpeg, .png " on:change={(e) => onFileSelected(e)} bind:this={fileinput} >
 					</div>
-					<button on:click={handleSubmit}>Add game</button>
+					<button class="btn" on:click={handleSubmit}>Add game</button>
 				</div>
 			</div>
 		</div>
@@ -86,7 +86,7 @@
 	}
 
 	.preview-image-div {
-		width: 50%;
+		width: 40px;
 		justify-self: center;
 	}
 
@@ -99,12 +99,13 @@
 
 	input {
 		padding: 10px 20px;
-		width: 600px;
+		width: 90%;
+		border-radius: 20px;
 	}
  
 	.upload{
-		height:50px;
-		width:50px;
+		height:40px;
+		width:40px;
 		cursor:pointer;
 		margin-left: 25px;
 	}
@@ -119,11 +120,19 @@
 		align-items: center;
 	}
 
-	.fileupload-list {
-		height: 200px;
-		width: 100%;
-	}
-	
+	.btn {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #212529;
+    color: #f8f9fa;
+    width: 150px;
+  }
+
+  .btn:hover {
+    background-color: #ffff;
+    color: #212529;
+  }
 
 </style>
 

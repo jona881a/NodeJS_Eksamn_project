@@ -93,7 +93,11 @@
                 <div class="game-reviews">
                     <div class="game-reviews-user">
                         <div class="game-reviews-user-pfp">
-                            <img src="pics/thumb.png" alt="profilePic" width="5px" height="5px" />
+                            {#if review.profile_pic}
+                            <img src="{review.profile_pic}" alt="profilePic" class="game-reviews-user-pfp-image"/>
+                            {:else}
+                            <img src="http://getdrawings.com/free-icon-bw/anonymous-avatar-icon-19.png" alt="profilePic" class="game-reviews-user-pfp-image"/>
+                            {/if}
                         </div>
                         <div class="game-reviews-user-name">
                             <span>{review.username}</span>
@@ -154,6 +158,7 @@
         float: right;
         max-height: 360px;
         overflow-y: scroll;
+        background-color: darkgray;
     }
     .game-container-reviews-topbar {
         width: 298px;
@@ -163,6 +168,7 @@
         border-color: black;
         float: right;
         border-bottom: 0px;
+        background-color: darkgray;
     }
     .game-reviews {
         width: auto;
@@ -171,9 +177,9 @@
         border-width: 1px;
         border-color: black;
         border-style: solid;
-        border-left: 0px;
-        margin-top: 2px;
-        margin-bottom: 5px;
+        margin: 5px;
+        border-radius: 10px ;
+        background-color: lightgray;
     }
     .game-reviews-user {
         height: 40px;
@@ -193,6 +199,10 @@
         height: 40px;
         width: 40px;
         display: inline-block;
+    }
+    .game-reviews-user-pfp-image {
+        height: 100%;
+        width: 100%;
     }
     .game-reviews-user-name {
         height: 40px;

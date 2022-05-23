@@ -20,7 +20,6 @@
   import Roulette from "../../Pages/Roulette/Roulette.svelte";
 
   let adminSessionClass = "";
-  let innerWidth = window.innerWidth;
 
   $: if($session) {
     if($session.admin === true) {
@@ -28,7 +27,7 @@
     }
   }
 
-  $: console.log(innerWidth);
+  $: innerWidth = window.innerWidth;
 </script>
 
 <svelte:window 
@@ -42,7 +41,7 @@
       <a href="/" class="siteTitle">Digi-KeyStore</a>
     </h1>
       <nav class={adminSessionClass}>
-        {#if innerWidth !== "768"}
+        {#if innerWidth > 768}
           <Link to="/">Home</Link>
           <Link to="/store">Store</Link>
           <Link to="/about">About</Link>
@@ -60,7 +59,31 @@
           {/if}
             <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
         {:else}
-          <Dropdown class="dropdown"/>
+          <Link class="cart" to="/cart"><i class="fa-solid fa-basket-shopping"></i> <span class="cart-items">({$itemsInCart})</span></Link>
+          <div class="dropdown">
+            <button class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+            <div class="dropdown-content">
+              <Link to="/">Home</Link>
+              <Link to="/store">Store</Link>
+              <Link to="/about">About</Link>
+              <Link to="/contact">Contact</Link>
+              {#if $session}
+                {#if $session.admin !== true}
+                  <Link class="profile" to="/profile">{$session.user.username}</Link>
+                {:else}
+                  <Link class="profile" to="/profile">Login</Link>
+                {/if}
+                {#if $session}
+                  {#if $session.admin === true}
+                    <Link class="supportchat" to="/supportchat">Supportchat</Link>
+                    <Link class="addproducts" to="/addproducts">Add Products</Link>
+                  {/if}
+                {/if}
+              {:else}
+                <Link class="profile" to="/profile">Login</Link>
+              {/if}
+            </div>
+          </div>
         {/if}
       </nav>
   </header>
@@ -146,9 +169,16 @@
   }
 
   @media screen and (max-width: 768px) {
-    :global(.dropdown) {
-      float: right;
+    .admin-session,
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
+    h1 {
+      width: 400px;
+    }
+
   }
 
   :global(.profile) {
@@ -163,5 +193,49 @@
   .cart-items {
     color: #868e96;
   }
+
+  .dropbtn {
+    background-color: #212529;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    margin-top: 10px;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content :global(a) {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+.dropdown-content :global(a:hover) {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #f1f1f1;
+  color: #333;
+}
 
 </style>
