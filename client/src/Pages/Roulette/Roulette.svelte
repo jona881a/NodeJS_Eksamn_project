@@ -1,15 +1,12 @@
 <script>
 import { onMount } from "svelte";
 
-
-
 let keyEmojie = "🔑";
 let lockEmojie = "🔒";
 let rouletteArray = [lockEmojie, lockEmojie, lockEmojie, lockEmojie, keyEmojie];
 let buildRoulette = false;
 let playing = false;
-let rouletteDivFocus = "rouletteDivFocus1";
-let randomInt;
+
 let gameHasStopped = false;
 let youHaveWon = null;
 
@@ -18,10 +15,7 @@ onMount(async () =>{
     buildRoulette = true;
 })
 
-
-
-
-let rouletteFieldNumber;
+let rouletteDivFocus = "rouletteDivFocus1";
 
 function changeField1(){
     rouletteDivFocus = "rouletteDivFocus1";
@@ -104,11 +98,13 @@ function stopTheRoulette(){
         }else if(currentField != keyEmojie){
             console.log(currentField, "YOU LOSE");
             youHaveWon = false;
+
         }
     }
 
     }, 1000)
 }
+
 
 
 </script>
@@ -206,7 +202,6 @@ function stopTheRoulette(){
 }
 
 #itemfield{
-    
     font-size: 60px;
     width: 55px;
     height: 55px;
@@ -215,45 +210,31 @@ function stopTheRoulette(){
     transform: translate(130%, 0);
 }
 
+#rouletteDivFocus1,
+#rouletteDivFocus2,
+#rouletteDivFocus3,
+#rouletteDivFocus4,
+#rouletteDivFocus5{
+background-color: greenyellow;
+width: 200px;
+height: 200px;
+border-radius: 60px;
+opacity: 40%;
+}
 #rouletteDivFocus1{
-    width: 200px;
-    height: 200px;
     transform: translate(20px,20px);
-    background-color: greenyellow;
-    border-radius: 60px;
-    opacity: 40%;
 }
 #rouletteDivFocus2{
-    width: 200px;
-    height: 200px;
     transform: translate(260px,20px);
-    background-color: greenyellow;
-    border-radius: 60px;
-    opacity: 40%;
 }
 #rouletteDivFocus3{
-    width: 200px;
-    height: 200px;
     transform: translate(500px,20px);
-    background-color: greenyellow;
-    border-radius: 60px;
-    opacity: 40%;
 }
 #rouletteDivFocus4{
-    width: 200px;
-    height: 200px;
     transform: translate(740px,20px);
-    background-color: greenyellow;
-    border-radius: 60px;
-    opacity: 40%;
 }
 #rouletteDivFocus5{
-    width: 200px;
-    height: 200px;
     transform: translate(980px,20px);
-    background-color: greenyellow;
-    border-radius: 60px;
-    opacity: 40%;
 }
 
 #winningDiv, #losingDiv{
