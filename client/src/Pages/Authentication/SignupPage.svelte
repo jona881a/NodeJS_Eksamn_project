@@ -12,7 +12,7 @@
   let signedUp = false;
 
   let avatar, fileinput;
-  let maxKb = 18.6;
+  let maxKb = 550;
 
   let redirectTime = 5;
   
@@ -29,7 +29,7 @@
 
   async function handleSignUp() {
     const url = "http://localhost:3000/auth/signup";
-    const userCredentials = {fullname: fullname, email: email, username: username, profile_pic: fileinput, password: password};
+    const userCredentials = {fullname: fullname, email: email, username: username, profile_pic: avatar, password: password};
     
     await fetch(url, {
       method: "POST",
@@ -40,10 +40,9 @@
       .then(response => response.json())
       .then(data => { 
         if(data.message) {
-          errorMessage = data.message;
-          displayErrorBox = 'errorBox-display';
+          toasts.accept('Successfully signed up');
         } else {
-          console.log("Validated");
+          toasts.error('You were not signed up', 'An error occurred, please try again');
         }
     })
     .catch(error => console.log(error));
@@ -73,29 +72,11 @@
 
     reader.readAsDataURL(image);
     reader.onload = e => {
-      if (kb < maxKb || kb > maxKb) {
+      if (kb < maxKb) {
         avatar = e.target.result;
       } else {
         toasts.warning('Picture size too large', 'Please select smaller image');
       }
-    };
-  }
-
-  const onFileReselect =(e)=>{
-    let image = e.target.files[0];
-    let kb = image.size / 1024; // convert the file size into byte to kb
-    console.log(fileinput.click())
-
-    let reader = new FileReader();
-
-    reader.readAsDataURL(image);
-    reader.onload = e => {
-    if (kb < maxKb) {
-      fileinput = e.target.result;
-      avatar = e.target.result;
-    } else {
-      toasts.warning('Picture size too large', 'Please select smaller image');
-    }
     };
   }
 </script>
