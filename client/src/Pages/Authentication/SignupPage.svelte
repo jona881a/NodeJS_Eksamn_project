@@ -9,6 +9,7 @@
   let username;
   let email;
   let password;
+  let confirmPassword;
   let signedUp = false;
 
   let avatar, fileinput;
@@ -28,9 +29,19 @@
   }
 
   async function handleSignUp() {
+    if (password === confirmPassword) {
+      toasts.warning('Passwords do not match','Please reconfirm password')
+      return
+    }
+
     const url = "http://localhost:3000/auth/signup";
-    const userCredentials = {fullname: fullname, email: email, username: username, profile_pic: avatar, password: password};
+    let userCredentials = {fullname: fullname, email: email, username: username, profile_pic: avatar, password: password};
     
+    let reader = new FileReader();
+    if(userCredentials.profile_pic == null) {
+      userCredentials.profile_pic = "http://getdrawings.com/free-icon-bw/anonymous-avatar-icon-19.png"
+    }
+
     await fetch(url, {
       method: "POST",
       headers: {
@@ -40,14 +51,14 @@
       .then(response => response.json())
       .then(data => { 
         if(data.message) {
-          toasts.accept('Successfully signed up');
+          toasts.success('Successfully signed up');
+          signedUp = true;
+          sendMailVerification();
         } else {
           toasts.error('You were not signed up', 'An error occurred, please try again');
         }
     })
     .catch(error => console.log(error));
-    signedUp = true;
-    sendMailVerification();
   }
 
   async function sendMailVerification(){
@@ -66,7 +77,7 @@
 	
 	const onFileSelected =(e)=>{
     let image = e.target.files[0];
-    let kb = image.size / 1024; // convert the file size into byte to kb
+    let kb = image.size / 1024; // convert the file size from byte to kb
 
     let reader = new FileReader();
 
@@ -89,6 +100,7 @@
 <input id="username" bind:value={username} name="username" type="text" placeholder="Username"><br>
 <input id="email" bind:value={email} name="email" type="text" placeholder="email"><br>
 <input id="password" bind:value={password} name="password" type="password" placeholder="password"><br>
+<input id="confirmPassword" bind:value={confirmPassword} name="confirmPassword" type="password" placeholder="Confirm password"><br>
 <div class="preview-image-div">
   {#if avatar}
   <img class="preview-image" src="{avatar}" alt="d" />
@@ -105,7 +117,6 @@
     <input style="display:none" type="file" accept=".jpg, .jpeg, .png " on:change={(e) => onFileSelected(e)} bind:this={fileinput} >
   </div>
 </div>
-
 <button id="signUp" on:click={handleSignUp}>Sign up</button><br>
 <a id="cancel" href="/login">Cancel</a>
 </div>
@@ -131,7 +142,7 @@
     color: black;
 }
 
-#fullname, #username, #email, #password, #signUp{
+#fullname, #username, #email, #password, #confirmPassword, #signUp{
     width: 400px;
     padding: 10px;
     border: 1px solid black;

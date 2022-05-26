@@ -62,6 +62,7 @@
     }
 
 </script>
+
 {#if dataLoaded}
 <div class="container">
     <div class="game-imagecarousel">
@@ -78,7 +79,7 @@
         <div>
             <div class="game-container-description">
                 <div class="game-description">
-                    <span>Hello</span>
+                    <span>{game.description}</span>
                 </div>
             </div>
             <div class="game-container-reviews-topbar">
