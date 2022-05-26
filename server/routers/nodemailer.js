@@ -30,7 +30,6 @@ router.post("/sendmail", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        console.log("Email sent: " + info.response);
         res.send({ message: "mail sent" });
       }
     }
@@ -39,7 +38,6 @@ router.post("/sendmail", (req, res) => {
 
 router.post("/sendmailverification", (req, res) => {
   const to = req.body.email;
-  console.log(to);
 
   transporter.sendMail(
     {
@@ -52,7 +50,6 @@ router.post("/sendmailverification", (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        console.log("Email sent: " + info.response);
         res.send({ message: "mail sent" });
       }
     }
