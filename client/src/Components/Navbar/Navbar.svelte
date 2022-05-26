@@ -18,6 +18,7 @@
   import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
   import { Dropdown } from "carbon-components-svelte";
   import Roulette from "../../Pages/Roulette/Roulette.svelte";
+import { component_subscribe } from "svelte/internal";
 
   let adminSessionClass = "";
 
@@ -107,9 +108,7 @@
     <PrivateRoute path="supportchat" let:location>
       <SupportChatPage/>
     </PrivateRoute>
-    <PrivateRoute path="roulette" let:location>
-      <Roulette/>
-    </PrivateRoute>
+    <Route path="roulette" component={Roulette}/>
   </div>
 </Router>
 

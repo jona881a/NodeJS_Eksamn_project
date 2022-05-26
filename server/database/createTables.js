@@ -17,8 +17,7 @@ if (deleteMode) {
     email VARCHAR(50),
     username VARCHAR(20),
     password VARCHAR(255),
-    profile_pic MEDIUMTEXT,
-    review_id INT
+    profile_pic MEDIUMTEXT
   );`
   );
 
