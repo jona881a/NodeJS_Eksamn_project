@@ -8,9 +8,33 @@ import adminRouter from "./routers/admin.js";
 import storeRouter from "./routers/store.js";
 import reviewRouter from "./routers/reviews.js";
 import cartRouter from "./routers/cart.js";
+import gamekeyRouter from "./routers/gamekey.js";
 import http from "http";
+import path from "path";
 
 const app = express();
+
+app.use(express.static(path.resolve("../client/public/")));
+
+app.use(express.json({ limit: "50mb" }));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    cookie: { secure: false },
+  })
+);
+
+app.use(authRouter);
+app.use(mailRouter);
+app.use(adminRouter);
+app.use(storeRouter);
+app.use(reviewRouter);
+app.use(cartRouter);
+app.use(gamekeyRouter);
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -18,27 +42,6 @@ const io = new Server(server, {
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   },
 });
-
-app.use(cors());
-const sessionMiddleWare = session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
-});
-
-const wrap = (middleware) => (socket, next) =>
-  middleware(socket.request, {}, next);
-io.use(wrap(sessionMiddleWare));
-
-app.use(sessionMiddleWare);
-app.use(express.json({ limit: "50mb" }));
-app.use(authRouter);
-app.use(mailRouter);
-app.use(adminRouter);
-app.use(storeRouter);
-app.use(reviewRouter);
-app.use(cartRouter);
 
 io.on("connection", (socket) => {
   console.log(

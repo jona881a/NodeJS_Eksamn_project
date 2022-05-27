@@ -44,6 +44,13 @@ if (deleteMode) {
     FOREIGN KEY (images_id) REFERENCES gameimages(id)
   );`
   );
+  //TABLE: keys
+  db.query(
+    `CREATE TABLE IF NOT EXISTS gamekeys (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      game_keys JSON
+    );`
+  );
 
   //TABLE: carts
   db.query(
@@ -52,7 +59,9 @@ if (deleteMode) {
       user_id INT,
       total_price DOUBLE,
       order_items JSON,
-      FOREIGN KEY (user_id) REFERENCES users(id)
+      game_keys_id INT,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (game_keys_id) REFERENCES gamekeys(id)
     );`
   );
 

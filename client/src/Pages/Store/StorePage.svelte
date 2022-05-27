@@ -42,7 +42,7 @@
     border-radius: 20px;
     padding: 20px;
   }
-
+  
   .store-header {
     display: flex;
     gap: 20px;  

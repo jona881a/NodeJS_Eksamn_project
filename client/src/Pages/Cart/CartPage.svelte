@@ -6,17 +6,26 @@
   
   async function handleCheckout() {
     if($session) {
-      console.log($session.user);
       const response = await fetch(`http://localhost:3000/cart/checkout/${$session.user.id}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json"
         },
-        body: {orderItems: $cartContents, totalPrice: $totalPrice}
+        body: JSON.stringify({orderItems: $cartContents, totalPrice: $totalPrice})
       });
-      const data = response.json(); 
+      const data = response.json();
+      data.then(result => {
+        if(result.message) {
+          toasts.success("Purchase successful!",result.message);
+          cartContents.set([]);
+          itemsInCart.set(0);
+          totalPrice.set(0);
+        } else if(result.errorMessage) {
+          toasts.error("Error", result.errorMessage);
+        }
+      }); 
     } else {
-      toasts.error("You are not logged in","to purchase your games, please log in");
+      toasts.warning("You are not logged in","to purchase your games, please log in");
     }
   }
 

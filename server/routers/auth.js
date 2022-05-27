@@ -10,15 +10,6 @@ let userToSend;
 /***********Functions**********/
 /******************************/
 
-/*
-async function passwordCreator(password) {
-  let newpassword = await bcrypt.hash(password, saltRounds);
-  console.log(newpassword)
-}
-
-passwordCreator("test")
-*/
-
 async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
@@ -39,7 +30,7 @@ async function checkLoginInfo(req, res, next) {
             fullname: foundUser.fullname,
             email: foundUser.email,
             username: foundUser.username,
-            profile_pic: foundUser.profile_pic
+            profile_pic: foundUser.profile_pic,
           };
           next();
         } else {
@@ -63,13 +54,18 @@ async function createUser(req, res, next) {
     [user.username],
     async (err, data) => {
       if (!data[0]) {
-
         const hashedPassword = await bcrypt.hash(user.password, saltRounds);
         const newUser = { ...user, password: hashedPassword };
 
         db.query(
           `INSERT INTO users(fullname,email,username,profile_pic,password) VALUES(?, ?, ?, ?, ?)`,
-          [newUser.fullname, newUser.email, newUser.username, newUser.profile_pic, newUser.password]
+          [
+            newUser.fullname,
+            newUser.email,
+            newUser.username,
+            newUser.profile_pic,
+            newUser.password,
+          ]
         );
         next();
       } else {
@@ -165,7 +161,7 @@ router.post("/auth/login", checkLoginInfo, (req, res) => {
 router.get("/auth/signout", (req, res) => {
   req.session.destroy;
   userToSend = null;
-  res.status(200).send({ user: userToSend });
+  res.status(200).send({ message: "succesfully logged out" });
 });
 
 router.post("/auth/signup", createUser, (req, res) => {
