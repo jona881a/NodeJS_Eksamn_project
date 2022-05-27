@@ -41,7 +41,8 @@
           <input>
         </div>
         <div class="profile-footer">
-          <button on:click={handleSignOut} class="btn">Sign out</button>
+          <button on:click={handleSignOut} class="btn">Sign out</button><br>
+          <a href="/changepassword" style="color: black;">Change password</a>
         </div>
       </div>
     </div>
@@ -69,6 +70,7 @@
     </div>
   </div>
 </div>
+
 <style>
   .container{
     width: 90vw;
@@ -98,8 +100,6 @@
     border-radius: 100%;
     height: 200px;
     width: 200px;
-  }
-  .profile-footer {
   }
   button {
     cursor: pointer;
