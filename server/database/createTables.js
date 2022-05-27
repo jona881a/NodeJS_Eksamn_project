@@ -4,10 +4,10 @@ let deleteMode = false;
 
 if (deleteMode) {
   db.query(`DROP TABLE IF EXISTS reviews;`);
+  db.query(`DROP TABLE IF EXISTS carts`);
   db.query(`DROP TABLE IF EXISTS users;`);
   db.query(`DROP TABLE IF EXISTS games;`);
   db.query(`DROP TABLE IF EXISTS gameimages;`);
-  db.query(`DROP TABLE IF EXISTS carts`);
 } else {
   //TABLE: users
   db.query(
@@ -17,8 +17,7 @@ if (deleteMode) {
     email VARCHAR(50),
     username VARCHAR(20),
     password VARCHAR(255),
-    profile_pic MEDIUMTEXT,
-    review_id INT
+    profile_pic MEDIUMTEXT
   );`
   );
 
@@ -36,6 +35,7 @@ if (deleteMode) {
     `CREATE TABLE IF NOT EXISTS games (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(50),
+    description VARCHAR(1000),
     genre VARCHAR(200),
     company VARCHAR(50),
     releasedate VARCHAR(10),

@@ -1,5 +1,6 @@
 <script>
   import { useNavigate} from "svelte-navigator";
+  import { toasts } from "svelte-toasts";
   import { session } from "../../stores/stores.js";
   
   const navigate = useNavigate();
@@ -23,9 +24,9 @@
       .then(response => response.json())
       .then(data => { 
         if(data.message) {
-          errorMessage = data.message;
-          displayErrorBox = 'errorBox-display';
+          toasts.warning('Failed to log in', 'Please check that username and password is correct')
         } else {
+          toasts.success('Successfully logged in', 'Welcome back ' + data.session.username)
           $session = data.session;
           navigate("/profile", { replace: true });
         }
@@ -34,13 +35,11 @@
   }
 
   function onKeyPress(e) {
-  if(e.charCode === 13) {
-    handleSubmit();
+    if(e.charCode === 13) {
+      handleSubmit();
+    }
   }
-}
-  
-  </script>
-
+</script>
 
   <div id="loginDiv" on:keypress={onKeyPress}>
     <h3 id="loginPageHeadline">Login</h3>
@@ -51,10 +50,8 @@
     <button id="loginButton" on:click={handleSubmit}>Login</button><br>
     <a href="/signup">Don't have an Account? Click here</a>
   </div>
-
   
   <style>
-
     #loginDiv{
       width: 500px;
       margin: 50px auto;

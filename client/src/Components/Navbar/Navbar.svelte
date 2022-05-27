@@ -18,6 +18,7 @@
   import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
   import { Dropdown } from "carbon-components-svelte";
   import Roulette from "../../Pages/Roulette/Roulette.svelte";
+import { component_subscribe } from "svelte/internal";
 
   let adminSessionClass = "";
 
@@ -52,7 +53,10 @@
               <Link class="addproducts" to="/addproducts">Add Products</Link>
             {/if}
             {#if $session.admin !== true}
+            <div class="profile-container">
+              <img src="{$session.user.profile_pic}" alt="a" class="profile-avatar"/>
               <Link class="profile" to="/profile">{$session.user.username}</Link>
+            </div>
             {/if}
           {:else}
             <Link class="profile" to="/profile">Login</Link>
@@ -69,7 +73,10 @@
               <Link to="/contact">Contact</Link>
               {#if $session}
                 {#if $session.admin !== true}
-                  <Link class="profile" to="/profile">{$session.user.username}</Link>
+                <div class="profile-container">
+                  <img src="{$session.user.profile_pic}" alt="a" class="profile-avatar"/>
+                  <Link class="user-profile" to="/profile">{$session.user.username}</Link>
+                </div>
                 {:else}
                   <Link class="profile" to="/profile">Login</Link>
                 {/if}
@@ -107,9 +114,7 @@
     <PrivateRoute path="supportchat" let:location>
       <SupportChatPage/>
     </PrivateRoute>
-    <PrivateRoute path="roulette" let:location>
-      <Roulette/>
-    </PrivateRoute>
+    <Route path="roulette" component={Roulette}/>
   </div>
 </Router>
 
@@ -148,7 +153,7 @@
   @media screen and (max-width: 1430px) {
     .admin-session,
     nav {
-      grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr;
     }
   }
   @media screen and (max-width: 1170px) {
@@ -186,12 +191,28 @@
   }
 
   :global(.cart) {
-    justify-self: end;
     margin-right: 10px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
   }
   
   .cart-items {
     color: #868e96;
+  }
+
+  .profile-container {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: flex-end;
+  }
+
+  .profile-avatar {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
   }
 
   .dropbtn {
