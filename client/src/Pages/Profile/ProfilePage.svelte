@@ -5,7 +5,8 @@
   import { toasts } from "svelte-toasts"; 
   import { Router, Link} from "svelte-navigator";
 
-  let orderArray;
+  let orderArray = [];
+  let searchedOrderArray = [];
   let searchString;
 
   onMount( async () => {
@@ -29,7 +30,19 @@
     .catch(error => console.error(error));
   }
 
+  function searchOrders() {
+    searchedOrderArray = []
+    orderArray.forEach(order => {
+      order.order_items.forEach(game => {
+        if(game.title.toLowerCase().includes(searchString.toLowerCase())) {
+        searchedOrderArray.push(order)
+        searchedOrderArray = searchedOrderArray;
+        }
+      });
+    });
+  }
 </script>
+
 <div class="container">
   <div class="row">
     <div class="col">
@@ -52,17 +65,29 @@
         {#if orderArray}
         <div class="order-history-header">
           <h1>Order History</h1>
-          <input class="searchbar" bind:value={searchString} placeholder="search..." />
+          <input class="searchbar" bind:value={searchString} on:change="{searchOrders}" placeholder="search..." />
         </div>
-          {#each orderArray as order}
-          <div class="order">
-            <div class="order-header">
-              <h2>Order #{order.id}</h2>
-              <span>Total order price: <strong>{order.total_price} DKK</strong></span>
+          {#if !searchString}
+            {#each orderArray as order}
+            <div class="order">
+              <div class="order-header">
+                <h2>Order #{order.id}</h2>
+                <span>Total order price: <strong>{order.total_price} DKK</strong></span>
+              </div>
+              <OrderItem orderItem={order} cartId={order.id}/>
             </div>
-            <OrderItem orderItem={order} cartId={order.id}/>
-          </div>
-          {/each}
+            {/each}
+          {:else}
+            {#each searchedOrderArray as order}
+              <div class="order">
+                <div class="order-header">
+                  <h2>Order #{order.id}</h2>
+                  <span>Total order price: <strong>{order.total_price} DKK</strong></span>
+                </div>
+                <OrderItem orderItem={order} cartId={order.id}/>
+              </div>
+            {/each}
+          {/if}
         {:else}
           <h1>No orders yet</h1>
         {/if}

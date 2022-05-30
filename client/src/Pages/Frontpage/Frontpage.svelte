@@ -13,7 +13,6 @@ let carouselIsReady = false;
                 console.error(data.errorMessage);
             } else {
                 coverArray = data.data;
-                console.log(coverArray)
                 carouselIsReady = true;
             }
         })
