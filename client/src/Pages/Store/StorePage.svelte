@@ -31,7 +31,7 @@
 <div class="container">
 <div class="store-header">
   <h1 class="games-in-store">Showing {games.length} games</h1>
-  <input class="searchbar" bind:value={searchString} on:change="{searchGame}" placeholder="search..." />
+  <input class="searchbar" bind:value={searchString} on:keypress="{searchGame}" placeholder="search..." />
 </div>
 <div class="store-content">
   {#if !searchString}

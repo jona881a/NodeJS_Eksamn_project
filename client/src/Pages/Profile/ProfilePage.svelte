@@ -65,7 +65,7 @@
         {#if orderArray}
         <div class="order-history-header">
           <h1>Order History</h1>
-          <input class="searchbar" bind:value={searchString} on:change="{searchOrders}" placeholder="search..." />
+          <input class="searchbar" bind:value={searchString} on:keypress="{searchOrders}" placeholder="search..." />
         </div>
           {#if !searchString}
             {#each orderArray as order}
