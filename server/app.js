@@ -66,4 +66,8 @@ io.on("connection", (socket) => {
   });
 });
 
+app.get("*", (req, res) => {
+  res.redirect("/");
+});
+
 server.listen(3000);

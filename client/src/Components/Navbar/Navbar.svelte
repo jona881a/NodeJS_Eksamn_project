@@ -16,10 +16,8 @@
   import ProductPage from "../../Pages/Store/ProductPage.svelte";
   import StorePage from "../../Pages/Store/StorePage.svelte";
   import SupportChatPage from "../../Pages/Admin/SupportChatPage.svelte";
-  import { Dropdown } from "carbon-components-svelte";
   import Roulette from "../../Pages/Roulette/Roulette.svelte";
-import { component_subscribe } from "svelte/internal";
-
+  
   let adminSessionClass = "";
 
   $: if($session) {

@@ -2,7 +2,7 @@
     import { selectedGame } from '../../stores/stores.js';
     import { onMount } from 'svelte';
     import Carousel from 'svelte-carousel';
-    import { toasts } from 'svelte-toasts'
+    import { toasts } from 'svelte-toasts';
     import ReviewModal from '../../Components/Modals/Modal.svelte';
 
     let gameReviews = [];
