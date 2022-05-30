@@ -66,7 +66,8 @@
     const response = await fetch("http://localhost:3000/sendmailverification", {
       method: 'POST',
       body: JSON.stringify({
-        email
+        email,
+        username
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8"

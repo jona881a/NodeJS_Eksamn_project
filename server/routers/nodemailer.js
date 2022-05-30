@@ -1,7 +1,7 @@
 import { Router } from "express";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import htmlMailTemplate from "../html/verificationmailTemplate.js";
+import {mailTemplateHead, mailTemplateBody} from "../html/verificationmailTemplate.js";
 dotenv.config();
 const router = Router();
 
@@ -38,13 +38,21 @@ router.post("/sendmail", (req, res) => {
 
 router.post("/sendmailverification", (req, res) => {
   const to = req.body.email;
+  const username = req.body.username;
 
   transporter.sendMail(
     {
       from: process.env.EMAIL_USER,
       to: to,
-      subject: "Welcome",
-      html: htmlMailTemplate,
+      subject: `Welcome, ${username}`,
+      html: `${mailTemplateHead}
+      <body>
+    <div>
+    <div id="mailContainer">
+        <h1 id="headline">Digi-KeyStore</h1>
+    </div>
+    <h2>Welcome, ${username}!</h2>
+    ${mailTemplateBody}`,
     },
     function (error, info) {
       if (error) {

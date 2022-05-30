@@ -1,5 +1,5 @@
 
-const mailTemplate = `
+export const mailTemplateHead = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +16,10 @@ const mailTemplate = `
         }
     </style>
 </head>
-<body>
-    <div>
-    <div id="mailContainer">
-        <h1 id="headline">Digi-KeyStore</h1>
-    </div>
-    <h2>Welcome!</h2>
+`
+
+
+export const mailTemplateBody = `
     <p>Welcome to Digi-KeyStore, we hope that you like games as much as we do! <br>
     We are a new small company, but we intend to have our company heard of world wide. <br>
     Please feel free to write us if any proplems occur.
@@ -33,5 +31,3 @@ const mailTemplate = `
 </body>
 </html>
 ` 
-
-export default mailTemplate;
