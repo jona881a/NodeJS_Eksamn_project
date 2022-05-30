@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { session } from "../../stores/stores.js";
   import OrderItem from "../../Components/Product/OrderItem.svelte";
-  import Select from "svelte-select";
   import { toasts } from "svelte-toasts"; 
   import { Router, Link} from "svelte-navigator";
 

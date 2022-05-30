@@ -46,13 +46,8 @@ router.post("/sendmailverification", (req, res) => {
       to: to,
       subject: `Welcome, ${username}`,
       html: `${mailTemplateHead}
-      <body>
-    <div>
-    <div id="mailContainer">
-        <h1 id="headline">Digi-KeyStore</h1>
-    </div>
-    <h2>Welcome, ${username}!</h2>
-    ${mailTemplateBody}`,
+             <h2>Welcome, ${username}!</h2>
+            ${mailTemplateBody}`,
     },
     function (error, info) {
       if (error) {
