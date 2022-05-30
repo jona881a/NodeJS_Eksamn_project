@@ -30,7 +30,7 @@
   }
 
   async function handleSignUp() {
-    if (password === confirmPassword) {
+    if (password !== confirmPassword) {
       toasts.warning('Passwords do not match','Please reconfirm password')
       return
     }
