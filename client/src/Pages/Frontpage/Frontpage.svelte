@@ -3,7 +3,6 @@ import Carousel from "svelte-carousel";
 import { onMount } from 'svelte';
 import {Router, Link, Route } from "svelte-navigator";
 
-
 let carouselIsReady = false;    
     let coverArray = [];
     onMount(async () => {
@@ -35,7 +34,7 @@ let carouselIsReady = false;
      <div  id="frontpageCarouselTextDiv">
      <h1>"Games everywhere for everyone"</h1>
      <div id="signUpAdvisor">
-     <p>Start your free account to recieve mails about keys on discount</p>
+     <p>Start your free account to receive mails about keys on discount</p>
      <button id="frontpageSignUp">
          <Router>
             <Link  to="/signup">Sign up now!</Link>

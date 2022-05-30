@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import Productitem from "../../Components/Product/Productitem.svelte";
   let games = [];
+  let searchedGames = [];
   let searchString;
 
   onMount( async () => {
@@ -15,17 +16,37 @@
       }
     });
   });
+
+  function searchGame() {
+    searchedGames = []
+    games.forEach(game => {
+      if(game.title.toLowerCase().includes(searchString.toLowerCase())) {
+        searchedGames.push(game)
+        searchedGames = searchedGames;
+      }
+    });
+  }
 </script>
 
 <div class="container">
 <div class="store-header">
   <h1 class="games-in-store">Showing {games.length} games</h1>
-  <input class="searchbar" bind:value={searchString} placeholder="search..." />
+  <input class="searchbar" bind:value={searchString} on:change="{searchGame}" placeholder="search..." />
 </div>
 <div class="store-content">
-  {#each games as game}
-    <Productitem product={game} disabled={false}/>
-  {/each}
+  {#if !searchString}
+    {#each games as game}
+      <Productitem product={game} disabled={false}/>
+    {/each}
+  {:else}
+    {#if searchedGames.length !== 0}
+      {#each searchedGames as game}
+        <Productitem product={game} disabled={false}/>
+      {/each}
+    {:else}
+      <h3>Sorry, we could not find a game containing: {searchString}</h3>
+    {/if}
+  {/if}
 </div>
 </div>
 
