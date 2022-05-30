@@ -4,6 +4,7 @@
   import OrderItem from "../../Components/Product/OrderItem.svelte";
   import Select from "svelte-select";
   import { toasts } from "svelte-toasts"; 
+  import { Router, Link} from "svelte-navigator";
 
   let orderArray;
   let searchString;
@@ -42,7 +43,9 @@
         </div>
         <div class="profile-footer">
           <button on:click={handleSignOut} class="btn">Sign out</button><br>
-          <a href="/changepassword" style="color: black;">Change password</a>
+          <Router>
+            <Link to="/changepassword" style="color: black;">Change password</Link>
+          </Router>
         </div>
       </div>
     </div>

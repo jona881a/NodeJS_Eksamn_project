@@ -2,6 +2,7 @@
   import { useNavigate} from "svelte-navigator";
   import { toasts } from "svelte-toasts";
   import { session } from "../../stores/stores.js";
+  import {Router, Link} from "svelte-navigator";
   
   const navigate = useNavigate();
   
@@ -46,9 +47,13 @@
     <div class={displayErrorBox}>{errorMessage}</div>
     <input class="login" bind:value={username} name="username" type="text" placeholder="Username"><br/>
     <input class="password" bind:value={password} name="password" type="password" placeholder="Password"><br/>
-    <a href="/forgot">Forgot Password?</a><br/>
+    <Router>
+      <Link id="forgot" to="/forgot">Forgot Password?</Link>
+      <br/>
     <button id="loginButton" on:click={handleSubmit}>Login</button><br>
-    <a href="/signup">Don't have an Account? Click here</a>
+      <Link id="signup" to="/signup">Don't have an Account? Click here</Link>
+      <br/>
+    </Router>
   </div>
   
   <style>
@@ -67,6 +72,14 @@
       border: 1px solid black;
     }
 
+    :global(#signup) {
+      color: black;
+    }
+
+    :global(#forgot) {
+     color: black;
+    }
+
     .errorBox-display {
       display: block;
       width:fit-content;
@@ -76,9 +89,5 @@
   
     .errorBox-display-none {
       display: none;
-    }
-
-    a {
-      color: black;
     }
   </style>

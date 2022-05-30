@@ -1,8 +1,8 @@
 <script>
 
 import io from "socket.io-client";
-import { onMount, onDestroy} from "svelte";
-import { session, user } from "../../stores/stores";
+import { onMount} from "svelte";
+import { session } from "../../stores/stores";
 import {Router, Link} from "svelte-navigator";
 
 const socket = io("http://localhost:3000");
