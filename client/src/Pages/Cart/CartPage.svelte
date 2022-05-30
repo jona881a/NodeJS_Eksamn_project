@@ -3,6 +3,7 @@
   import { session } from "../../stores/stores.js";
   import Productitem from "../../Components/Product/Productitem.svelte";
   import { toasts } from "svelte-toasts"; 
+  import {Router, Link} from "svelte-navigator";
   
   async function handleCheckout() {
     if($session) {
@@ -40,10 +41,12 @@
     {#if $itemsInCart === 0}
       <div class="no-cart-content">
         <h1>There is no products in your cart yet...</h1>
-        <h2><a href="/store">Click here</a> to browse amazing games</h2>
-        <div class="images">
-
-        </div>
+        <h2>
+          <Router>
+            <Link to="/store" style="color: black;">Click here</Link>
+          </Router>
+          to browse amazing games
+        </h2>
       </div>
     {:else}
       <div class="cart-content">

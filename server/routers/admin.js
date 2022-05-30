@@ -21,11 +21,13 @@ router.post("/admin/addproducts", (req, res) => {
                 res.send({ errorMessage: "The data could not be obtained" });
               } else if (data[0]) {
                 db.query(
-                  `INSERT INTO games(title, genre, company, releasedate, images_id) VALUES(?,?,?,?,?)`,
+                  `INSERT INTO games(title, genre, company, description, price, releasedate, images_id) VALUES(?,?,?,?,?,?,?)`,
                   [
                     gameproduct.title,
                     gameproduct.genre,
                     gameproduct.company,
+                    gameproduct.description,
+                    gameproduct.price,
                     gameproduct.releasedate,
                     data[0].id,
                   ],
