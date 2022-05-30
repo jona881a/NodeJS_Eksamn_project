@@ -2,6 +2,7 @@
   import { useNavigate} from "svelte-navigator";
   import { session } from "../../stores/stores.js";
   import { toasts } from "svelte-toasts";
+  import { Router, Link } from "svelte-navigator";
   
   const navigate = useNavigate();
   
@@ -118,7 +119,9 @@
   </div>
 </div>
 <button id="signUp" on:click={handleSignUp}>Sign up</button><br>
-<a id="cancel" href="/login">Cancel</a>
+<Router>
+  <Link to="/login" style="color: black;">Cancel</Link>
+</Router>
 </div>
 {:else if signedUp === true}
 <div id="approvedDiv">
