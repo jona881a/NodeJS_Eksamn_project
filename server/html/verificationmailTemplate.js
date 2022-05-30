@@ -16,6 +16,11 @@ export const mailTemplateHead = `
         }
     </style>
 </head>
+<body>
+<div>
+<div id="mailContainer">
+    <h1 id="headline">Digi-KeyStore</h1>
+</div>
 `
 
 
