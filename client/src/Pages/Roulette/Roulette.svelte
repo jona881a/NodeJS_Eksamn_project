@@ -98,6 +98,7 @@ function stopTheRoulette(){
         }else if(currentField != keyEmojie){
             console.log(currentField, "YOU LOSE");
             youHaveWon = false;
+            document.getElementById(rouletteDivFocus).style.backgroundColor = "red";
 
         }
     }
@@ -133,9 +134,15 @@ function stopTheRoulette(){
 
     {#if gameHasStopped === true}
         {#if youHaveWon === true}
-        <div id="winningDiv"></div>
+        <div id="winningDiv">
+            <h1 class="rewardText">You Win!</h1>
+            <h1 class="rewardEmojie">{keyEmojie}</h1>
+        </div>
         {:else if youHaveWon === false}
-        <div id="losingDiv"></div>
+        <div id="losingDiv">
+            <h1 class="rewardText">You Lose!</h1>
+            <h1 class="rewardEmojie">{lockEmojie}</h1>
+        </div>
         {/if}
     {/if}
 {/if}
@@ -243,13 +250,22 @@ opacity: 40%;
     margin: 20px auto;
     border-radius: 60px;
     background-color: white;
-    opacity: 40%;
 }
 #winningDiv{
     border: 10px solid greenyellow;
 }
 #losingDiv{
     border: 10px solid red;
+}
+
+.rewardText{
+    font-size: 60px;
+    text-align: center;
+}
+
+.rewardEmojie{
+    font-size: 100px;
+    text-align: center;
 }
 
 </style>

@@ -174,7 +174,7 @@ router.post("/auth/login", checkLoginInfo, (req, res) => {
 router.get("/auth/signout", (req, res) => {
   req.session.destroy;
   userToSend = null;
-  res.status(200).send({ message: "succesfully logged out" });
+  res.status(200).send({ message: "You logged out" });
 });
 
 router.post("/auth/signup", createUser, (req, res) => {
