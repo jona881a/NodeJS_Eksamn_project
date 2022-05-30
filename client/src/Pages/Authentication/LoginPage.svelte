@@ -26,8 +26,8 @@
         if(data.message) {
           toasts.warning('Failed to log in', 'Please check that username and password is correct')
         } else {
-          toasts.success('Successfully logged in', 'Welcome back ' + data.session.username)
           $session = data.session;
+          toasts.success('Successfully logged in', 'Welcome back ' + $session.user.username)
           navigate("/profile", { replace: true });
         }
       })
