@@ -93,7 +93,6 @@
   }
 </script>
 
-
 {#if signedUp === false}
 <div id="signUpDiv">
 <h3 id="signUpPageHeadline">Sign Up</h3>
@@ -140,9 +139,6 @@
 
 #signUpPageHeadline{
     font-size: 20px;
-}
-#cancel{
-    color: black;
 }
 
 #fullname, #username, #email, #password, #confirmPassword, #signUp{

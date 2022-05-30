@@ -25,7 +25,7 @@
     const data = response.json();
     data.then(result => {
       session.set(null);
-      toasts.success(result.message);
+      toasts.info(result.message, "Come back soon!");
     })
     .catch(error => console.error(error));
   }
