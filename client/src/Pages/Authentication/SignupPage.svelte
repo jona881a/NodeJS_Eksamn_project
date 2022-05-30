@@ -92,10 +92,16 @@
       }
     };
   }
+
+  function onKeyPress(e) {
+    if(e.charCode === 13) {
+      handleSignUp();
+    }
+  }
 </script>
 
 {#if signedUp === false}
-<div id="signUpDiv">
+<div id="signUpDiv" on:keypress={onKeyPress}>
 <h3 id="signUpPageHeadline">Sign Up</h3>
 <input id="fullname" bind:value={fullname} name="fullname" type="text" placeholder="full name"><br>
 <input id="username" bind:value={username} name="username" type="text" placeholder="Username"><br>
@@ -118,10 +124,12 @@
     <input style="display:none" type="file" accept=".jpg, .jpeg, .png " on:change={(e) => onFileSelected(e)} bind:this={fileinput} >
   </div>
 </div>
-<button id="signUp" on:click={handleSignUp}>Sign up</button><br>
-<Router>
-  <Link to="/login" style="color: black;">Cancel</Link>
-</Router>
+<div class="footer">
+  <button id="signUpButton" on:click={handleSignUp}>Sign up</button><br>
+  <Router>
+    <Link id="cancelButton" to="/login">Cancel</Link>
+  </Router>
+</div>
 </div>
 {:else if signedUp === true}
 <div id="approvedDiv">
@@ -134,53 +142,102 @@
 
 <style>
 #signUpDiv, #approvedDiv{
-    width: 500px;
-    margin: 50px auto;
+  width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #signUpPageHeadline{
-    font-size: 20px;
+  font-size: 44px;
+  font-weight: 500;
+  text-align: center;
 }
 
-#fullname, #username, #email, #password, #confirmPassword, #signUp{
-    width: 400px;
-    padding: 10px;
-    border: 1px solid black;
+input{
+  width: 90%;
+  padding: 10px;
+  border-radius: 20px;
 }
 
 .preview-image-div {
-	  width: 50%;
-	  justify-self: center;
+	width: 50%;
+	justify-self: center;
+  align-self: center;
 }
 
 .preview-image {
-	  overflow: hidden;
-    border-radius: 100%;
-	  width: 200px;
-    height: 200px;
-    max-width: 200px;
-    max-height: 200px;
-    border: 1px solid black;
+	overflow: hidden;
+  border-radius: 100%;
+	width: 200px;
+  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  border: 1px solid black;
 }  
 
 .preview-image-comment {
-	  overflow: hidden;
-    border-radius: 100%;
-	  width: 40px;
-    height: 40px;
-    border: 1px solid black;
+	overflow: hidden;
+  border-radius: 100%;
+	width: 40px;
+  height: 40px;
+  border: 1px solid black;
 }  
 
 .image-upload-div {
-		display: flex;
-		align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 60px;
+  margin-bottom: 20px;
 }
 
 .upload{
-		height:40px;
-		width:40px;
-		cursor:pointer;
-		margin-left: 25px;
+	height:40px;
+	width:40px;
+	cursor:pointer;
+	margin-left: 25px;
+  align-self: center;
+}
+.chan {
+  display: inline-block;
+}
+.footer {
+  display: flex;
+  justify-self: flex-start;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
+#signUpButton {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background-color: #212529;
+  color: #f8f9fa;
+  width: 100px;
+  margin-bottom: 0;
+}
+
+#signUpButton:hover {
+  background-color: #ffff;
+  color: #212529;
+}
+
+:global(#cancelButton) {
+  display: block;
+  border-radius: 20px;
+  padding: 10px 15px;
+  width: 80px;
+  color: #fff;
+  background-color: #f03e3e;
+  text-align: center;
+  cursor: pointer;
+}
+:global(#cancelButton:hover) {
+  background-color: #c92a2a;
+}
 </style>

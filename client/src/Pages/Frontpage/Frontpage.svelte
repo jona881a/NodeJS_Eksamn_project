@@ -1,10 +1,10 @@
 <script>
 import Carousel from "svelte-carousel";
 import { onMount } from 'svelte';
-import {Router, Link, Route } from "svelte-navigator";
+import {Router, Link } from "svelte-navigator";
 
 let carouselIsReady = false;    
-    let coverArray = [];
+let coverArray = [];
     onMount(async () => {
         const response = await fetch("http://localhost:3000/store/covergames");
         const data = response.json();
@@ -27,7 +27,7 @@ let carouselIsReady = false;
     dots={false}
     >
     {#each coverArray as image}
-    <img id="coverImage" src={image.cover_image} alt="coverImage">
+        <img id="coverImage" src={image.cover_image} alt="coverImage">
     {/each}
      </Carousel>
      <div  id="frontpageCarouselTextDiv">

@@ -6,9 +6,6 @@
   
   const navigate = useNavigate();
   
-  let displayErrorBox = 'error-display-none';
-  let errorMessage = "";
-  
   let username;
   let password;
   
@@ -44,13 +41,12 @@
 
   <div id="loginDiv" on:keypress={onKeyPress}>
     <h3 id="loginPageHeadline">Login</h3>
-    <div class={displayErrorBox}>{errorMessage}</div>
     <input class="login" bind:value={username} name="username" type="text" placeholder="Username"><br/>
     <input class="password" bind:value={password} name="password" type="password" placeholder="Password"><br/>
     <Router>
+    <button id="loginButton" on:click={handleSubmit}>Login</button><br>
       <Link id="forgot" to="/forgot">Forgot Password?</Link>
       <br/>
-    <button id="loginButton" on:click={handleSubmit}>Login</button><br>
       <Link id="signup" to="/signup">Don't have an Account? Click here</Link>
       <br/>
     </Router>
@@ -59,35 +55,44 @@
   <style>
     #loginDiv{
       width: 500px;
-      margin: 50px auto;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
     }
 
     #loginPageHeadline{
-      font-size: 20px;;
+      font-size: 44px;
+      font-weight: 500;
+      text-align: center;
     }
 
     .login, .password, #loginButton{
-      width: 400px;
+      width: 90%;
       padding: 10px;
-      border: 1px solid black;
+      border-radius: 20px;
+      align-self: center;
+    }
+    #loginButton {
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 20px;
+      background-color: #212529;
+      color: #f8f9fa;
+      width: 90%;
+    }
+    #loginButton:hover {
+      background-color: #ffff;
+      color: #212529;
     }
 
     :global(#signup) {
       color: black;
+      margin-left: 25px;
     }
 
     :global(#forgot) {
      color: black;
+     margin-left: 25px;
     }
 
-    .errorBox-display {
-      display: block;
-      width:fit-content;
-      background-color: pink;
-      color: red;
-    }
-  
-    .errorBox-display-none {
-      display: none;
-    }
   </style>
