@@ -8,8 +8,8 @@ const router = Router();
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.USER,
-    pass: process.env.PASS,
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -20,7 +20,7 @@ router.post("/sendmail", (req, res) => {
 
   transporter.sendMail(
     {
-      to: process.env.USER,
+      to: process.env.EMAIL_USER,
       subject: subject,
       html: `<h1>${from}</h1><br>
       <h2>${subject}</h3><br>
@@ -41,7 +41,7 @@ router.post("/sendmailverification", (req, res) => {
 
   transporter.sendMail(
     {
-      from: process.env.USER,
+      from: process.env.EMAIL_USER,
       to: to,
       subject: "Welcome",
       html: htmlMailTemplate,
