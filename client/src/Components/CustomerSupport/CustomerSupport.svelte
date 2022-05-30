@@ -9,7 +9,10 @@
     } else {
       chatOpened = true;
     }
-    
+  }
+
+  function handleCloseChat(event) {
+    chatOpened = !event.detail.close;
   }
 
 </script>
@@ -18,7 +21,7 @@
   </div>
 
   {#if chatOpened}
-    <CustomerSupportChatBox />
+    <CustomerSupportChatBox on:close-chatwindow={handleCloseChat}/>
   {/if}
 
 <style>

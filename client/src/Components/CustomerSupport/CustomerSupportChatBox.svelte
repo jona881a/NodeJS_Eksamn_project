@@ -4,11 +4,14 @@ import io from "socket.io-client";
 import { onMount} from "svelte";
 import { session } from "../../stores/stores";
 import {Router, Link} from "svelte-navigator";
+import { createEventDispatcher } from 'svelte';
 
 const socket = io("http://localhost:3000");
 
 let userResponse;
 let messageLog = [];
+
+const dispatch = createEventDispatcher();
 
 onMount( async () => {
   if($session) socket.emit("open-chat", {username: $session.user.username});
@@ -30,6 +33,13 @@ function handleSubmitMessage() {
   socket.emit("send-message", {message: userResponse, username: $session.user.username});
   userResponse = null;
 }
+
+function handleCloseChat() {
+  dispatch('close-chatwindow', {
+      close: true
+    });
+}
+
 
 function onKeyPress(e) {
   if(e.charCode === 13) {
@@ -61,7 +71,7 @@ function onKeyPress(e) {
     {:else}
       <div class="no-user">
         <p>Sorry, but you have to be logged in in order to use the support chat</p>
-        <button>
+        <button on:click={handleCloseChat}>
           <Router>
             <Link to="/profile">Login</Link>
           </Router>

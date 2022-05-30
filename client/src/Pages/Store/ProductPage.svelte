@@ -63,7 +63,7 @@
 
 </script>
 
-{#if dataLoaded}
+{#if dataLoaded && game.carousel_images !== null}
 <div class="container">
     <div class="game-imagecarousel">
         <Carousel autoplay

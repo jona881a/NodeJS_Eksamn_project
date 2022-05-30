@@ -38,7 +38,6 @@
         <div class="profile-body">
           <!-- svelte-ignore a11y-missing-attribute -->
           <img src={$session.user.profile_pic} class="profile-pic">
-          <input>
         </div>
         <div class="profile-footer">
           <button on:click={handleSignOut} class="btn">Sign out</button><br>
@@ -102,6 +101,7 @@
     height: 200px;
     width: 200px;
   }
+  
   button {
     cursor: pointer;
     padding: 10px 15px;
