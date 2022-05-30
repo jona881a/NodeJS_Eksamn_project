@@ -1,6 +1,11 @@
 <script>
-	let previewImage, fileinput, imageAsUrl;
-	let title, genre, company, releasedate, cover_image;
+	import { useNavigate } from "svelte-navigator";
+	import { toasts } from "svelte-toasts"; 
+
+	const navigate = useNavigate();
+
+	let previewImage, fileinput;
+	let title, genre, company, description, releasedate, price, cover_image;
 	let imageUrlArray = [];
 	let imageArray = [];
 
@@ -17,12 +22,21 @@
 				title,
 				genre, 
 				company, 
+				description,
 				releasedate, 
+				price,
 				cover_image,
 				carousel_images: imageUrlArray
 			})
 		});
-		const { message } = await response.json();
+		const data = await response.json();
+		if(data.message !== undefined) {
+			toasts.success(data.message);
+			navigate("/store", {replace: true});
+		} else if (data.errorMessage !== undefined) {
+			toasts.error(data.errorMessage);
+		}
+
 	} 
 	
 	const onFileSelected = async (e) => {
@@ -36,7 +50,6 @@
 
     reader.onload = e => {
 			previewImage = e.target.result;
-      //imageAsUrl = ;
 			imageUrlArray.push(e.target.result);
 			imageUrlArray = [...imageUrlArray]
     };
@@ -61,12 +74,18 @@
 		
 				<label for="genre">Game genre(s)</label>
 				<input id="genre" bind:value={genre} placeholder = "separate with commas" />
+
+				<label for="description"> Game description</label>
+				<input id="description" bind:value={description} />
 		
 				<label for="company">Game dev company</label>
 				<input id="company" bind:value={company} />
 		
 				<label for="releasedate">Game releasedate</label>
 				<input id="releasedate" bind:value={releasedate} />
+
+				<label for="price">Price</label>
+				<input id="price" type="number" bind:value={price} />
 				
 				<div class="image-upload-div">
 					<div class="image-upload">
@@ -86,7 +105,7 @@
 	}
 
 	.preview-image-div {
-		width: 40px;
+		width: 50%;
 		justify-self: center;
 	}
 

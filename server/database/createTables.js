@@ -8,6 +8,7 @@ if (deleteMode) {
   db.query(`DROP TABLE IF EXISTS users;`);
   db.query(`DROP TABLE IF EXISTS games;`);
   db.query(`DROP TABLE IF EXISTS gameimages;`);
+  db.query(`DROP TABLE IF EXISTS gamekeys`);
 } else {
   //TABLE: users
   db.query(

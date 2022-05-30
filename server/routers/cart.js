@@ -9,7 +9,6 @@ async function generateKeys(order) {
 
   order.orderItems.forEach((item) => {
     code.get((error, code) => {
-      if (error) return console.error(error);
       gameKeys.push({ game: item.title, gamekey: code });
     });
   });

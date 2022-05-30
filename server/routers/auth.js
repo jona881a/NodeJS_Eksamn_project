@@ -103,20 +103,21 @@ async function changepassword(req, res, next) {
             ...user,
             password: user.password,
           };
-          db.query(`UPDATE users SET password = ? WHERE username = ?`, [
-            updatedUser.password,
-            updatedUser.username,
-          ],(err, data) => {
-            if (err) {
-              console.log(err);
-              res.status(404).send({
-                message: "An unexpected error has occured, check sql syntax",
+          db.query(
+            `UPDATE users SET password = ? WHERE username = ?`,
+            [updatedUser.password, updatedUser.username],
+            (err, data) => {
+              if (err) {
+                console.log(err);
+                res.status(404).send({
+                  message: "An unexpected error has occured, check sql syntax",
+                });
+              }
+              res.status(200).send({
+                message: "Successfully updated user",
               });
             }
-            res.status(200).send({
-              message: "Successfully updated user"
-            })
-          });
+          );
         }
       } else {
         res.status(404).send({ message: "The user could not be found" });
@@ -163,6 +164,8 @@ async function updateUser(req, res, next) {
 router.post("/auth/login", checkLoginInfo, (req, res) => {
   if (userToSend.username === "admin") {
     req.session.admin = true;
+  } else {
+    req.session.admin = false;
   }
   req.session.user = userToSend;
   res.status(200).send({ session: req.session });

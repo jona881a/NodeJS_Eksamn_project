@@ -9,6 +9,3 @@ import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
 	<ToastContainer placement="top-right" let:data>
 		<FlatToast {data}/>
 	</ToastContainer>
-<style>
-
-</style>
