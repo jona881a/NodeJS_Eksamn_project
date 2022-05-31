@@ -10,12 +10,6 @@ let userToSend;
 /***********Functions**********/
 /******************************/
 
-/*async function hashPassword(password) {
-  console.log(await bcrypt.hash(password, saltRounds))
-  return
-}
-hashPassword("test")*/
-
 async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
