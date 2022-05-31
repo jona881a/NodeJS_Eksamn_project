@@ -11,16 +11,16 @@
     let confirmNewPassword;
     
     async function handleSubmit() {
-    if (password === confirmPassword) {
+    if (newPassword !== confirmNewPassword) {
         toasts.warning('Passwords do not match','Please reconfirm password')
         return
     }
 
-    const url = "http://localhost:3000/auth/changePassword";
-    const userCredentials = {username: username, password: password};
+    const url = "http://localhost:3000/auth/changepassword";
+    const userCredentials = {username: username, password: password, newPassword: newPassword};
       
     await fetch(url, {
-        method: "POST",
+        method: "PATCH",
         headers: {
         'Content-Type': 'application/json',
         },
@@ -28,10 +28,10 @@
         .then(response => response.json())
         .then(data => { 
             if(data.message) {
-                toasts.warning('Update failed', 'Please check that username and password is correct')
-            } else {
-                toasts.success('Password successfully changed', 'An email has been sent to' + data.session.email)
+                toasts.success('Password successfully changed', 'A confimation email has been sent to you')
                 navigate("/profile", { replace: true });
+            } else {
+                toasts.warning('Update failed', 'Please check that username and password is correct')
             }
         })
         .catch(error => console.log(error));
@@ -49,7 +49,7 @@
     <input class="changePassword" bind:value={username} name="username" type="text" placeholder="Username"><br/>
     <input class="password" bind:value={password} name="password" type="password" placeholder="Password"><br/>
     <input class="newPassword" bind:value={newPassword} name="newPassword" type="password" placeholder="New password"><br/>
-    <input class="confirmNewPassword" bind:value={confirmNewPassword} name="confirmNewPassword" type="password" placeholder="New password"><br/>
+    <input class="confirmNewPassword" bind:value={confirmNewPassword} name="confirmNewPassword" type="password" placeholder="Confirm new password"><br/>
     <button id="changePasswordButton" on:click={handleSubmit}>Update</button><br>  
 </div>
     
@@ -63,7 +63,7 @@
         font-size: 20px;;
     }
   
-    .changePassword, .password, #changePasswordButton{
+    .changePassword, .password, .newPassword, .confirmNewPassword, #changePasswordButton{
         width: 400px;
         padding: 10px;
         border: 1px solid black;
