@@ -126,7 +126,12 @@
     height: 200px;
     width: 200px;
   }
-  
+  .profile-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   button {
     cursor: pointer;
     padding: 10px 15px;

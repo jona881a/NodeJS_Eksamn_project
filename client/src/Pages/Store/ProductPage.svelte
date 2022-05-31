@@ -63,40 +63,53 @@
 
 </script>
 
-{#if dataLoaded && game.carousel_images !== null}
+
+{#if dataLoaded}
 <div class="container">
     <div class="game-imagecarousel">
         <Carousel autoplay
         autoplayDuration={4000}
         pauseOnFocus
+        arrows={false}
+
         >
-        {#each game.carousel_images as image}
-          <img src="{image}" alt="carousel_images" class="game-imagecarousel-image">
-        {/each}
+        {#if game.carousel_images === null} 
+             <div class="game-imagecarousel empty">
+                <img src={$selectedGame.cover_image} alt="cover_image" class="game-imagecarousel-image">
+            </div>
+        {:else}
+            {#each game.carousel_images as image}
+            <img src="{image}" alt="carousel_images" class="game-imagecarousel-image">
+            {/each}
+        {/if}
         </Carousel>
+        <div class="game-info">
+            <h1>{game.title}</h1>
+        </div>
     </div>
     <div class="game-container">
-        <div>
-            <div class="game-container-description">
-                <div class="game-description">
+        <div class="game-container-description">
+            <div class="game-description">
+                {#if game.description !== null}
                     <span>{game.description}</span>
-                </div>
-            </div>
-            <div class="game-container-reviews-topbar">
-                <button on:click="{openModal}">Write a review</button>
-                {#if isOpen}
-                    <ReviewModal on:close-modal="{closeModal}" on:saved-review="{updateArray}"/>
+                {:else}
+                    <span>No description on this game</span>
                 {/if}
             </div>
-            <div class="game-container-reviews">
-                {#each gameReviews as review}
+        </div>
+        <div class="game-container-reviews">
+            <button on:click="{openModal}">Write a review</button>
+            {#if isOpen}
+                <ReviewModal on:close-modal="{closeModal}" on:saved-review="{updateArray}"/>
+            {/if}
+            {#each gameReviews as review}
                 <div class="game-reviews">
                     <div class="game-reviews-user">
                         <div class="game-reviews-user-pfp">
                             {#if review.profile_pic}
-                            <img src="{review.profile_pic}" alt="profilePic" class="game-reviews-user-pfp-image"/>
+                                <img src="{review.profile_pic}" alt="profilePic" class="game-reviews-user-pfp-image"/>
                             {:else}
-                            <img src="http://getdrawings.com/free-icon-bw/anonymous-avatar-icon-19.png" alt="profilePic" class="game-reviews-user-pfp-image"/>
+                                <img src="http://getdrawings.com/free-icon-bw/anonymous-avatar-icon-19.png" alt="profilePic" class="game-reviews-user-pfp-image"/>
                             {/if}
                         </div>
                         <div class="game-reviews-user-name">
@@ -107,79 +120,73 @@
                         <span>{review.review_content}</span>
                     </div>
                 </div>
-                {/each}
-            </div>
+            {/each}
         </div>
     </div>
 </div>
 {/if}
 <style>
     .container {
-        width: 900px;
-        height: 1100px;
+        width: 100%;
         margin: 0 auto;
     }
     .game-imagecarousel {
-        width: 900px;
-        height: 400px;
-        max-width: 900px;
-        max-height: 400px;
+        height: 600px;
+        max-height: 600px;
         overflow: hidden;
-        margin-top: 15px;
     }
     .game-imagecarousel-image {
-        max-width: 900px;
-        max-height: 400px;
+        max-height: 600px;
         overflow: hidden;
     }
+    .game-info {
+        position: absolute;
+        width: 100%;
+        bottom: 20px;
+        color: #fff;
+        background-color: #16181a;
+        opacity: 70%;
+        padding-left: 20px;
+    }
     .game-container {
-        margin-top: 15px;
+        display: flex;
+        background-color: #212529;
+        color: #fff;
     }
     .game-container-description {
-        width: 598px;
-        height: 400px;
-        border: 1px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: black;
-        border-right: 0px;
-        float: left;
+        width: 70%;
+        height: fit-content;
+        line-height: 1.5;
+        padding: 20px;
     }
     .game-description {
-        padding-left: 7px;
-        padding-right: 7px;
+        background-color: #212529;
+        width: 60%;
+        margin: 0 auto;
     }
     .game-container-reviews {
-        width: 298px;
-        height: 360px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: black;
-        float: right;
+        width: 30%;
         max-height: 360px;
+        margin-right: 20px;
         overflow-y: scroll;
-        background-color: darkgray;
     }
-    .game-container-reviews-topbar {
-        width: 298px;
-        height: 40px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: black;
-        float: right;
-        border-bottom: 0px;
-        background-color: darkgray;
+    button {
+        margin-top: 10px;
+        border-radius: 20px;
+        padding: 10px 15px;
+    }
+    button:hover {
+        cursor: pointer;
+        background-color: #16181a;
+        color: #fff;
     }
     .game-reviews {
-        width: auto;
         overflow-x: hidden;
         overflow-y: auto;
-        border-width: 1px;
-        border-color: black;
-        border-style: solid;
         margin: 5px;
         border-radius: 10px ;
-        background-color: lightgray;
+        background-color: #fff;
+        color: #333;
     }
     .game-reviews-user {
         height: 40px;
