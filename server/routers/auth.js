@@ -10,6 +10,12 @@ let userToSend;
 /***********Functions**********/
 /******************************/
 
+/*async function hashPassword(password) {
+  console.log(await bcrypt.hash(password, saltRounds))
+  return
+}
+hashPassword("test")*/
+
 async function checkLoginInfo(req, res, next) {
   const user = req.body;
 
@@ -80,47 +86,30 @@ async function createUser(req, res, next) {
 
 async function changepassword(req, res, next) {
   const user = req.body;
-
+  
   db.query(
     `SELECT * FROM users WHERE username = ?`,
     [user.username],
     async (err, data) => {
       let existingUser = data[0];
-
-      if (user.username == existingUser.username) {
-        const existingPassword = await bcrypt.compare(
-          user.password,
-          existingUser.password
-        );
-
-        if (existingPassword) {
-          res
-            .status(409)
-            .send({ message: "Password cannot be the same as old one" });
-        } else {
-          const updatedUser = {
-            ...existingUser,
-            ...user,
-            password: user.password,
-          };
-          db.query(
-            `UPDATE users SET password = ? WHERE username = ?`,
-            [updatedUser.password, updatedUser.username],
-            (err, data) => {
-              if (err) {
-                console.log(err);
-                res.status(404).send({
-                  message: "An unexpected error has occured, check sql syntax",
-                });
-              }
-              res.status(200).send({
-                message: "Successfully updated user",
-              });
+      if (existingUser !== undefined && await bcrypt.compare( user.password, existingUser.password )) {
+        let newHashedPassword = await bcrypt.hash(user.newPassword, saltRounds)
+        db.query(
+          `UPDATE users SET password = ? WHERE username = ?`,
+          [newHashedPassword, user.username],
+          (err, data) => {
+            if (err) {
+              console.log(err);
+              res
+              .status(404)
+              .send({errMessage: "An unexpected error has occured, check sql syntax"});
+            } else {
+              next();
             }
-          );
-        }
+          }
+        );
       } else {
-        res.status(404).send({ message: "The user could not be found" });
+        res.status(409).send({errMessage: "Incorrect username or password"})
       }
     }
   );
@@ -185,7 +174,6 @@ router.post("/auth/signup", createUser, (req, res) => {
 
 router.patch("/auth/changepassword", changepassword, (req, res) => {
   res.status(200).send({ message: "Password changed successfully" });
-  //Send a mail to the users email with a recent change
 });
 
 router.put("/auth/update", updateUser, (req, res) => {
